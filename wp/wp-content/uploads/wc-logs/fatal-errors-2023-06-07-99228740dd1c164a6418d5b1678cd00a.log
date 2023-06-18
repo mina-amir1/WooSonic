@@ -1,0 +1,27 @@
+2023-06-07T11:10:22+00:00 CRITICAL Uncaught Error: Call to a member function is_type() on bool in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/orderInfo.php:21
+Stack trace:
+#0 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/orderInfo.php on line 21
+
+2023-06-07T11:11:06+00:00 CRITICAL Uncaught Error: Call to a member function is_type() on bool in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/orderInfo.php:21
+Stack trace:
+#0 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/orderInfo.php on line 21
+
+2023-06-07T11:25:22+00:00 CRITICAL Uncaught Error: Cannot use object of type WC_DateTime as array in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/orderInfo.php:56
+Stack trace:
+#0 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/orderInfo.php on line 56
+
+2023-06-07T11:25:32+00:00 CRITICAL Uncaught ArgumentCountError: Too few arguments to function WC_DateTime::date(), 0 passed in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/orderInfo.php on line 56 and exactly 1 expected in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/class-wc-datetime.php:92
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/orderInfo.php(56): WC_DateTime->date()
+#1 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/class-wc-datetime.php on line 92
+
+2023-06-07T11:26:15+00:00 CRITICAL Uncaught ArgumentCountError: Too few arguments to function WC_DateTime::date(), 0 passed in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/orderInfo.php on line 56 and exactly 1 expected in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/class-wc-datetime.php:92
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/orderInfo.php(56): WC_DateTime->date()
+#1 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/class-wc-datetime.php on line 92
+

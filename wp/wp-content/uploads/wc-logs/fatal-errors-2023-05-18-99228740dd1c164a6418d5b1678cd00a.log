@@ -1,0 +1,6 @@
+2023-05-18T13:57:52+00:00 CRITICAL Uncaught JsonException: Syntax error in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/shipping/getGovs.php:6
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/shipping/getGovs.php(6): json_decode('', true, 512, 4194304)
+#1 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/shipping/getGovs.php on line 6
+

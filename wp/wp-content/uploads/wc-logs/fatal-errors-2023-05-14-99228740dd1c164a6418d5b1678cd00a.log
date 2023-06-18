@@ -1,0 +1,27 @@
+2023-05-14T09:59:44+00:00 CRITICAL Uncaught JsonException: Syntax error in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/filter.php:6
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/filter.php(6): json_decode('{\n    "category...', true, 512, 4194304)
+#1 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/filter.php on line 6
+
+2023-05-14T10:01:42+00:00 CRITICAL Uncaught JsonException: Syntax error in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/filter.php:6
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/filter.php(6): json_decode('{\n    "category...', true, 512, 4194304)
+#1 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/filter.php on line 6
+
+2023-05-14T15:03:43+00:00 CRITICAL Uncaught Error: Call to a member function get_status() on bool in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/filter.php:92
+Stack trace:
+#0 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/filter.php on line 92
+
+2023-05-14T15:04:40+00:00 CRITICAL Uncaught Error: Call to a member function get_status() on bool in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/filter.php:92
+Stack trace:
+#0 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/filter.php on line 92
+
+2023-05-14T15:04:53+00:00 CRITICAL Uncaught Error: Call to a member function get_status() on bool in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/filter.php:92
+Stack trace:
+#0 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/filter.php on line 92
+

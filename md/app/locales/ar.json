@@ -1,0 +1,80 @@
+{
+  "home": {
+    "title": "اهلا بكم في صفحتي الرئيسية",
+    "description": "هذا هو وصف صفحتي الرئيسية"
+  },
+  "blog": {
+    "title": "مدونتي",
+    "description": "هذا هو وصف مدونتي"
+  },
+  "about": {
+    "title": "من نحن",
+    "description": "هذا وصف عني"
+  },
+  "languageSwitcher": {
+    "en": "English",
+    "ar": "العربية"
+  },
+  "checkout": {
+    "checkout": "إتمام الطلب",
+    "first_name": "الاسم الأول",
+    "last_name": "اسم العائلة",
+    "phone_number": "رقم الهاتف",
+    "email_address": "البريد الإلكتروني",
+    "shipping_information": "معلومات الشحن",
+    "choose_order_date": "اختر تاريخ الطلب",
+    "shipping_method": "طريقة الشحن",
+    "area": "المنطقة",
+    "neighborhood": "الحي",
+    "select_neighborhood": "اختار الحي",
+    "ship_to_me": "اشحن إلي",
+    "pick_from_branch": "استلام من الفرع",
+    "choose_branch": "اختار المتجر",
+    "city": "المدينة",
+    "street_name": "اسم الشارع",
+    "select_area": "اختار المنطقة",
+    "property_type": "نوع العقار",
+    "apartment": "شقة",
+    "villa": "فيلا",
+    "building_no": "رقم المبنى",
+    "floor": "الطابق",
+    "today": "اليوم",
+    "terms": "لقد قرأت وقبلت جميع الشروط والأحكام",
+    "within_60_min": "في خلال 60 دقيقة",
+    "choose_date": "اختر التاريخ"
+  },
+  "common": {
+    "topBannerText": "احصل على توصيل مجاني للطلبات التي تزيد عن 100 دولار",
+    "quick_view": "نظرة سريعه",
+    "new_arrivals": "وصل حديثًا",
+    "in": "في",
+    "login": "تسجيل الدخول",
+    "password": "كلمه السر",
+    "login_label": "اسم المستخدم / البريد الإلكتروني",
+    "login_label_placeholder": "example@example.com / اسم المستخدم",
+    "next_step": "الخطوة التالية (اتمام الدفع)",
+    "branch": "فرع",
+    "my_account": "حسابي",
+    "submit": "إرسال",
+    "forgot_btn": "إرسال بريد إلكتروني لإعادة التعيين",
+    "view_details": "عرض التفاصيل",
+    "remember_me": "تذكرني",
+    "sign_in": "تسجيل الدخول"
+  },
+  "cities": {
+    "cairo": "القاهرة",
+    "alexandria": "الإسكندرية",
+    "giza": "الجيزة",
+    "sharm_el_sheikh": "شرم الشيخ",
+    "luxor": "الأقصر",
+    "aswan": "أسوان"
+  },
+  "fields": {
+    "username_required": "يجب إدخال اسم المستخدم",
+    "first_name_required": "يجب إدخال الاسم الأول",
+    "last_name_required": "يجب إدخال اسم العائلة",
+    "password_required": "يجب إدخال كلمة المرور",
+    "password_length": "يجب أن تكون كلمة المرور على الأقل 5 أحرف",
+    "password_pattern": "يجب أن تحتوي كلمة المرور على حرف كبير وحرف صغير ورقم"
+  }
+}

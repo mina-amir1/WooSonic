@@ -1,0 +1,94 @@
+2023-06-08T21:19:19+00:00 CRITICAL Cannot redeclare smtp_menu() (previously declared in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/smtp/smtpPanel.php:5) in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/posttagy/posttagyPanel.php on line 3
+
+2023-06-08T21:19:19+00:00 CRITICAL Cannot redeclare smtp_menu() (previously declared in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/smtp/smtpPanel.php:5) in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/posttagy/posttagyPanel.php on line 3
+
+2023-06-08T21:40:09+00:00 CRITICAL Uncaught Error: Failed opening required 'MitchAPI/createsend-php-master/csrest_transactional_smartemail.php' (include_path='.:/usr/share/php:/www/wp-content/pear') in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php:145
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(308): my_custom_function_after_order_status_changed(115, 'processing', 'completed', Object(Automattic\WooCommerce\Admin\Overrides\Order))
+#1 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters('', Array)
+#2 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#3 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/class-wc-order.php(397): do_action('woocommerce_ord...', 115, 'processing', 'completed', Object(Automattic\WooCommerce\Admin\Overrides\Order))
+#4 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/class-wc-order.php(245): WC_Order->status_transition()
+#5 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-order-data.php(699): WC_Order->save()
+#6 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(310): WC_Meta_Box_Order_Data::save(115)
+#7 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters(NULL, Array)
+#8 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#9 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/class-wc-admin-meta-boxes.php(258): do_action('woocommerce_pro...', 115, Object(WP_Post))
+#10 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(310): WC_Admin_Meta_Boxes->save_meta_boxes(115, Object(WP_Post))
+#11 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters('', Array)
+#12 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#13 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/post.php(4717): do_action('save_post', 115, Object(WP_Post), true)
+#14 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/post.php(4819): wp_insert_post(Array, false, true)
+#15 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/includes/post.php(426): wp_update_post(Array)
+#16 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/post.php(227): edit_post()
+#17 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 145
+
+2023-06-08T21:41:05+00:00 CRITICAL Uncaught Error: Failed opening required '../../../MitchAPI/createsend-php-master/csrest_transactional_smartemail.php' (include_path='.:/usr/share/php:/www/wp-content/pear') in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php:145
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(308): my_custom_function_after_order_status_changed(115, 'processing', 'completed', Object(Automattic\WooCommerce\Admin\Overrides\Order))
+#1 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters('', Array)
+#2 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#3 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/class-wc-order.php(397): do_action('woocommerce_ord...', 115, 'processing', 'completed', Object(Automattic\WooCommerce\Admin\Overrides\Order))
+#4 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/class-wc-order.php(245): WC_Order->status_transition()
+#5 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-order-data.php(699): WC_Order->save()
+#6 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(310): WC_Meta_Box_Order_Data::save(115)
+#7 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters(NULL, Array)
+#8 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#9 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/class-wc-admin-meta-boxes.php(258): do_action('woocommerce_pro...', 115, Object(WP_Post))
+#10 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(310): WC_Admin_Meta_Boxes->save_meta_boxes(115, Object(WP_Post))
+#11 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters('', Array)
+#12 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#13 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/post.php(4717): do_action('save_post', 115, Object(WP_Post), true)
+#14 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/post.php(4819): wp_insert_post(Array, false, true)
+#15 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/includes/post.php(426): wp_update_post(Array)
+#16 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/post.php(227): edit_post()
+#17 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 145
+
+2023-06-08T22:00:06+00:00 CRITICAL syntax error, unexpected token "}" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 168
+
+2023-06-08T22:00:50+00:00 CRITICAL syntax error, unexpected token "}" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 168
+
+2023-06-08T22:01:53+00:00 CRITICAL syntax error, unexpected token "}" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 168
+
+2023-06-08T22:02:08+00:00 CRITICAL syntax error, unexpected token "}" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 168
+
+2023-06-08T22:02:29+00:00 CRITICAL syntax error, unexpected token "}" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 168
+
+2023-06-08T22:02:29+00:00 CRITICAL syntax error, unexpected token "}" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 168
+
+2023-06-08T22:02:29+00:00 CRITICAL syntax error, unexpected token "}" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 168
+
+2023-06-08T22:18:16+00:00 CRITICAL syntax error, unexpected token "}" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 183
+
+2023-06-08T22:19:38+00:00 CRITICAL syntax error, unexpected token "}" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 183
+
+2023-06-08T22:21:30+00:00 CRITICAL syntax error, unexpected token "}" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 207
+
+2023-06-08T22:22:18+00:00 CRITICAL syntax error, unexpected token "}" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 219
+
+2023-06-08T22:28:09+00:00 CRITICAL Uncaught TypeError: array_merge(): Argument #1 must be of type array, null given in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/createsend-php-master/csrest_transactional_smartemail.php:146
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/createsend-php-master/csrest_transactional_smartemail.php(146): array_merge(NULL, Array)
+#1 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php(246): CS_REST_Transactional_SmartEmail->send(NULL, 'yes')
+#2 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(308): my_custom_function_after_order_status_changed(115, 'processing', 'readyship', Object(Automattic\WooCommerce\Admin\Overrides\Order))
+#3 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters('', Array)
+#4 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#5 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/class-wc-order.php(397): do_action('woocommerce_ord...', 115, 'processing', 'readyship', Object(Automattic\WooCommerce\Admin\Overrides\Order))
+#6 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/class-wc-order.php(245): WC_Order->status_transition()
+#7 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-order-data.php(699): WC_Order->save()
+#8 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(310): WC_Meta_Box_Order_Data::save(115)
+#9 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters(NULL, Array)
+#10 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#11 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/class-wc-admin-meta-boxes.php(258): do_action('woocommerce_pro...', 115, Object(WP_Post))
+#12 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(310): WC_Admin_Meta_Boxes->save_meta_boxes(115, Object(WP_Post))
+#13 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters('', Array)
+#14 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#15 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/post.php(4717): do_action('save_post', 115, Object(WP_Post), true)
+#16 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/post.php(4819): wp_insert_post(Array, false, true)
+#17 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/includes/post.php(426): wp_update_post(Array)
+#18 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/post.php(227): edit_post()
+#19 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/createsend-php-master/csrest_transactional_smartemail.php on line 146
+

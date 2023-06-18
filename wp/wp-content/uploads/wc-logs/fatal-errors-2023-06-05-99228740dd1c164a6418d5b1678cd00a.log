@@ -1,0 +1,83 @@
+2023-06-05T14:46:13+00:00 CRITICAL Uncaught Error: Call to undefined method Automattic\WooCommerce\Admin\Overrides\Order::get_billing_gov() in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-order-data.php:364
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/includes/template.php(1409): WC_Meta_Box_Order_Data::output(Object(WP_Post), Array)
+#1 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/edit-form-advanced.php(688): do_meta_boxes(Object(WP_Screen), 'normal', Object(WP_Post))
+#2 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/post.php(206): require('/Users/mina/mit...')
+#3 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-order-data.php on line 364
+
+2023-06-05T14:48:04+00:00 CRITICAL Uncaught Error: Call to undefined method Automattic\WooCommerce\Admin\Overrides\Order::get_billing() in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php:150
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(308): display_custom_meta_data_in_order_billing(Object(Automattic\WooCommerce\Admin\Overrides\Order))
+#1 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters('', Array)
+#2 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#3 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-order-data.php(468): do_action('woocommerce_adm...', Object(Automattic\WooCommerce\Admin\Overrides\Order))
+#4 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/includes/template.php(1409): WC_Meta_Box_Order_Data::output(Object(WP_Post), Array)
+#5 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/edit-form-advanced.php(688): do_meta_boxes(Object(WP_Screen), 'normal', Object(WP_Post))
+#6 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/post.php(206): require('/Users/mina/mit...')
+#7 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 150
+
+2023-06-05T14:48:22+00:00 CRITICAL Uncaught Error: Call to undefined method Automattic\WooCommerce\Admin\Overrides\Order::get_billing() in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php:150
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(308): display_custom_meta_data_in_order_billing(Object(Automattic\WooCommerce\Admin\Overrides\Order))
+#1 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters('', Array)
+#2 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#3 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-order-data.php(468): do_action('woocommerce_adm...', Object(Automattic\WooCommerce\Admin\Overrides\Order))
+#4 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/includes/template.php(1409): WC_Meta_Box_Order_Data::output(Object(WP_Post), Array)
+#5 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/edit-form-advanced.php(688): do_meta_boxes(Object(WP_Screen), 'normal', Object(WP_Post))
+#6 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/post.php(206): require('/Users/mina/mit...')
+#7 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 150
+
+2023-06-05T14:49:01+00:00 CRITICAL Uncaught Error: Call to undefined method Automattic\WooCommerce\Admin\Overrides\Order::get_billing() in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php:150
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(308): display_custom_meta_data_in_order_billing(Object(Automattic\WooCommerce\Admin\Overrides\Order))
+#1 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters('', Array)
+#2 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#3 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-order-data.php(468): do_action('woocommerce_adm...', Object(Automattic\WooCommerce\Admin\Overrides\Order))
+#4 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/includes/template.php(1409): WC_Meta_Box_Order_Data::output(Object(WP_Post), Array)
+#5 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/edit-form-advanced.php(688): do_meta_boxes(Object(WP_Screen), 'normal', Object(WP_Post))
+#6 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/post.php(206): require('/Users/mina/mit...')
+#7 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 150
+
+2023-06-05T15:04:18+00:00 CRITICAL syntax error, unexpected token "return" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 159
+
+2023-06-05T15:13:37+00:00 CRITICAL Uncaught Error: Call to a member function get_billing_first_name() on array in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php:165
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(310): modify_formatted_billing_address('Misha Rudrastyh...', Array)
+#1 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/plugin.php(205): WP_Hook->apply_filters('Misha Rudrastyh...', Array)
+#2 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/class-wc-order.php(952): apply_filters('woocommerce_ord...', 'Misha Rudrastyh...', Array, Object(Automattic\WooCommerce\Admin\Overrides\Order))
+#3 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-order-data.php(363): WC_Order->get_formatted_billing_address()
+#4 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/includes/template.php(1409): WC_Meta_Box_Order_Data::output(Object(WP_Post), Array)
+#5 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/edit-form-advanced.php(688): do_meta_boxes(Object(WP_Screen), 'normal', Object(WP_Post))
+#6 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/post.php(206): require('/Users/mina/mit...')
+#7 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 165
+
+2023-06-05T15:14:26+00:00 CRITICAL Uncaught Error: Call to a member function get_billing_first_name() on array in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php:166
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(310): modify_formatted_billing_address('Misha Rudrastyh...', Array)
+#1 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/plugin.php(205): WP_Hook->apply_filters('Misha Rudrastyh...', Array)
+#2 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/class-wc-order.php(952): apply_filters('woocommerce_ord...', 'Misha Rudrastyh...', Array, Object(Automattic\WooCommerce\Admin\Overrides\Order))
+#3 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-order-data.php(363): WC_Order->get_formatted_billing_address()
+#4 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/includes/template.php(1409): WC_Meta_Box_Order_Data::output(Object(WP_Post), Array)
+#5 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/edit-form-advanced.php(688): do_meta_boxes(Object(WP_Screen), 'normal', Object(WP_Post))
+#6 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/post.php(206): require('/Users/mina/mit...')
+#7 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 166
+
+2023-06-05T15:17:53+00:00 CRITICAL syntax error, unexpected token "return" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 169
+
+2023-06-05T15:32:10+00:00 CRITICAL Uncaught TypeError: array_map(): Argument #2 ($array) must be of type array, null given in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/class-wc-countries.php:601
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/class-wc-countries.php(601): array_map('esc_html', NULL)
+#1 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/class-wc-order.php(942): WC_Countries->get_formatted_address(Array)
+#2 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-order-data.php(363): WC_Order->get_formatted_billing_address()
+#3 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/includes/template.php(1409): WC_Meta_Box_Order_Data::output(Object(WP_Post), Array)
+#4 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/edit-form-advanced.php(688): do_meta_boxes(Object(WP_Screen), 'normal', Object(WP_Post))
+#5 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/post.php(206): require('/Users/mina/mit...')
+#6 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/class-wc-countries.php on line 601
+

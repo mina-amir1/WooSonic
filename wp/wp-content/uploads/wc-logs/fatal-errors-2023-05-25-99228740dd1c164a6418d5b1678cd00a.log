@@ -1,0 +1,52 @@
+2023-05-25T14:25:45+00:00 CRITICAL Uncaught JsonException: Syntax error in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php:9
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php(9): json_decode('', true, 512, 4194304)
+#1 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php on line 9
+
+2023-05-25T14:26:09+00:00 CRITICAL Uncaught ArgumentCountError: date_timestamp_get() expects exactly 1 argument, 0 given in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php:5
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php(5): date_timestamp_get()
+#1 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php on line 5
+
+2023-05-25T14:26:26+00:00 CRITICAL Uncaught ArgumentCountError: date_timestamp_get() expects exactly 1 argument, 0 given in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php:5
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php(5): date_timestamp_get()
+#1 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php on line 5
+
+2023-05-25T14:26:27+00:00 CRITICAL Uncaught ArgumentCountError: date_timestamp_get() expects exactly 1 argument, 0 given in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php:5
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php(5): date_timestamp_get()
+#1 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php on line 5
+
+2023-05-25T14:26:28+00:00 CRITICAL Uncaught ArgumentCountError: date_timestamp_get() expects exactly 1 argument, 0 given in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php:5
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php(5): date_timestamp_get()
+#1 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php on line 5
+
+2023-05-25T14:27:53+00:00 CRITICAL Uncaught ArgumentCountError: date_timestamp_get() expects exactly 1 argument, 0 given in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php:5
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php(5): date_timestamp_get()
+#1 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php on line 5
+
+2023-05-25T14:27:54+00:00 CRITICAL Uncaught ArgumentCountError: date_timestamp_get() expects exactly 1 argument, 0 given in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php:5
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php(5): date_timestamp_get()
+#1 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php on line 5
+
+2023-05-25T15:25:39+00:00 CRITICAL Uncaught Error: Call to undefined function timeto() in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php:14
+Stack trace:
+#0 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php on line 14
+
+2023-05-25T15:26:15+00:00 CRITICAL Uncaught Error: Call to undefined function timeto() in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php:14
+Stack trace:
+#0 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/payment/paye.php on line 14
+

@@ -1,0 +1,38 @@
+2023-06-06T08:08:03+00:00 CRITICAL Cannot redeclare add_wallet_payment_method() (previously declared in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php:239) in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 383
+
+2023-06-06T18:39:40+00:00 CRITICAL Uncaught ArgumentCountError: Too few arguments to function add_menu_page(), 3 passed in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/shipping/shipping.php on line 8 and at least 4 expected in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/includes/plugin.php:1305
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/shipping/shipping.php(8): add_menu_page('PWA Settings', 'PWA Settings', 'manage_options')
+#1 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(308): shipping_custom_menu('')
+#2 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters(NULL, Array)
+#3 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#4 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/includes/menu.php(155): do_action('admin_menu', '')
+#5 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/menu.php(428): require_once('/Users/mina/mit...')
+#6 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/admin.php(158): require('/Users/mina/mit...')
+#7 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/includes/plugin.php on line 1305
+
+2023-06-06T19:00:18+00:00 CRITICAL syntax error, unexpected token ";", expecting ")" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/shipping/shipping.php on line 12
+
+2023-06-06T19:17:31+00:00 CRITICAL Cannot redeclare shipping_custom_menu() (previously declared in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/shipping/shipping.php:5) in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/payment/paymentPanel.php on line 3
+
+2023-06-06T19:17:32+00:00 CRITICAL Cannot redeclare shipping_custom_menu() (previously declared in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/shipping/shipping.php:5) in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/payment/paymentPanel.php on line 3
+
+2023-06-06T19:17:32+00:00 CRITICAL Cannot redeclare shipping_custom_menu() (previously declared in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/shipping/shipping.php:5) in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/payment/paymentPanel.php on line 3
+
+2023-06-06T19:22:53+00:00 CRITICAL syntax error, unexpected token ";" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/payment/paymentPanel.php on line 20
+
+2023-06-06T19:22:54+00:00 CRITICAL syntax error, unexpected token ";" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/payment/paymentPanel.php on line 20
+
+2023-06-06T20:25:21+00:00 CRITICAL Unclosed '{' on line 49 in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/payment/paymentPanel.php on line 61
+
+2023-06-06T21:19:23+00:00 CRITICAL syntax error, unexpected token "}" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/payment/paymentPanel.php on line 60
+
+2023-06-06T21:21:23+00:00 CRITICAL syntax error, unexpected token "}" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/payment/paymentPanel.php on line 60
+
+2023-06-06T21:25:18+00:00 CRITICAL syntax error, unexpected variable "$wpdb" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/payment/paymentPanel.php on line 63
+
+2023-06-06T21:26:18+00:00 CRITICAL syntax error, unexpected variable "$wpdb" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/payment/paymentPanel.php on line 63
+
+2023-06-06T21:28:18+00:00 CRITICAL syntax error, unexpected variable "$wpdb" in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/payment/paymentPanel.php on line 63
+

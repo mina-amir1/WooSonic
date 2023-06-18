@@ -1,0 +1,56 @@
+2023-05-30T11:49:55+00:00 CRITICAL Uncaught Error: Call to a member function get_meta() on null in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php:144
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(308): add_custom_field_to_product_page('')
+#1 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/class-wp-hook.php(332): WP_Hook->apply_filters('', Array)
+#2 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-includes/plugin.php(517): WP_Hook->do_action(Array)
+#3 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/meta-boxes/views/html-product-data-general.php(206): do_action('woocommerce_pro...')
+#4 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-product-data.php(42): include('/Users/mina/mit...')
+#5 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/meta-boxes/views/html-product-data-panel.php(52): WC_Meta_Box_Product_Data::output_tabs()
+#6 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-product-data.php(33): include('/Users/mina/mit...')
+#7 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/includes/template.php(1409): WC_Meta_Box_Product_Data::output(Object(WP_Post), Array)
+#8 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/edit-form-advanced.php(688): do_meta_boxes(Object(WP_Screen), 'normal', Object(WP_Post))
+#9 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/post-new.php(75): require('/Users/mina/mit...')
+#10 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php on line 144
+
+2023-05-30T12:25:05+00:00 CRITICAL Uncaught TypeError: call_user_func(): Argument #1 ($callback) must be a valid callback, function "render_custom_post_box" not found or invalid function name in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/includes/template.php:1409
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/edit-form-advanced.php(688): do_meta_boxes(Object(WP_Screen), 'normal', Object(WP_Post))
+#1 /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/post-new.php(75): require('/Users/mina/mit...')
+#2 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-admin/includes/template.php on line 1409
+
+2023-05-30T12:58:30+00:00 CRITICAL Uncaught Error: Call to a member function get_id() on bool in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/single.php:12
+Stack trace:
+#0 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/single.php on line 12
+
+2023-05-30T12:59:22+00:00 CRITICAL Uncaught Error: Call to a member function get_id() on bool in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/single.php:12
+Stack trace:
+#0 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/single.php on line 12
+
+2023-05-30T13:33:22+00:00 CRITICAL Uncaught JsonException: Syntax error in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/single.php:6
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/single.php(6): json_decode('', true, 512, 4194304)
+#1 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/single.php on line 6
+
+2023-05-30T13:53:02+00:00 CRITICAL Uncaught JsonException: Syntax error in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/single.php:6
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/single.php(6): json_decode('{\n    "slug" : ...', true, 512, 4194304)
+#1 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/single.php on line 6
+
+2023-05-30T13:53:15+00:00 CRITICAL Uncaught JsonException: Syntax error in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/single.php:6
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/single.php(6): json_decode('{\n    "slug" : ...', true, 512, 4194304)
+#1 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/single.php on line 6
+
+2023-05-30T13:53:23+00:00 CRITICAL Uncaught JsonException: Syntax error in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/single.php:6
+Stack trace:
+#0 /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/single.php(6): json_decode('{\n    "slug" : ...', true, 512, 4194304)
+#1 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/single.php on line 6
+

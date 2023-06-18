@@ -1,0 +1,7 @@
+2023-05-31T18:58:55+00:00 CRITICAL Uncaught Error: Call to a member function get_price() on array in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/filter.php:86
+Stack trace:
+#0 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/filter.php on line 86
+
+2023-05-31T21:50:23+00:00 CRITICAL Cannot redeclare enqueue_custom_scripts() (previously declared in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/functions.php:146) in /Users/mina/mitchpwa/mitchpwa/wp/app/public/wp-content/themes/storefront/shipping/shipping.php on line 273
+

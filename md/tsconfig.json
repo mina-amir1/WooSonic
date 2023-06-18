@@ -1,0 +1,26 @@
+{
+  "include": ["remix.env.d.ts", "**/*.ts", "**/*.tsx" , "server.js"],
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "target": "ESNext",
+    "strict": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./app/*"]
+    },
+    "types": [
+      "@remix-run/data"
+    ],
+    "typeRoots": ["node_modules/@types", "node_modules/@remix-run"],
+
+    // Remix takes care of building everything in `remix build`.
+    "noEmit": true
+  }
+}

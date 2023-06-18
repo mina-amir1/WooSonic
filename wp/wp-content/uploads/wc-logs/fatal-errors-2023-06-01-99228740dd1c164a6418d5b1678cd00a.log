@@ -1,0 +1,5 @@
+2023-06-01T13:08:22+00:00 CRITICAL Uncaught Error: Call to undefined method WC_Order_Item_Product::get_price() in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/orderInfo.php:21
+Stack trace:
+#0 {main}
+  thrown in /Users/mina/mitchpwa/mitchpwa/wp/app/public/MitchAPI/orderInfo.php on line 21
+
