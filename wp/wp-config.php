@@ -45,7 +45,7 @@ define( 'DB_COLLATE', '' );
  * License:
  */
 
-define('PWA_Base_Link','*');
+define('PWA_Base_Link','https://pwa.cloudhosta.com');
 
 /**#@+
  * Authentication unique keys and salts.
