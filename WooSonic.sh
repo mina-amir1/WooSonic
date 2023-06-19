@@ -112,7 +112,7 @@ echo "$password" | sudo -S docker-compose -f "$compose_file" up -d
 
 sleep 2
 # Update the MySQL database with the new domain
-output=$(docker exec -i pwa-db mysql -uroot -pexample -e "use pwa; update wp_options set option_value ='https://$new_domain' where option_id in (1,2);" 2>&1)
+output=$(docker exec -i pwa-db mysql -uroot -pexample -e "use pwa; update wp_options set option_value ='https://backend.$new_domain' where option_id in (1,2);" 2>&1)
 exit_code=$?
 # Check if any error occurred
 if [ $exit_code -ne 0 ]; then
