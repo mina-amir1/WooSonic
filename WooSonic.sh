@@ -78,17 +78,17 @@ options=("staging" "live" "local")
 select environment in "${options[@]}"; do
     case $environment in
         "staging")
-            compose_file="docker-compose.staging.yaml"
+            compose_file="docker-compose.staging.yml"
             nginx_conf_file="./deploy/staging/nginx.conf"
             break
             ;;
         "live")
-            compose_file="docker-compose.live.yaml"
+            compose_file="docker-compose.live.yml"
             nginx_conf_file="./deploy/live/nginx.conf"
             break
             ;;
         "local")
-            compose_file="docker-compose.local.yaml"
+            compose_file="docker-compose.local.yml"
             nginx_conf_file="./deploy/local/nginx.conf"
             break
             ;;
