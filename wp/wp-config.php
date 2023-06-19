@@ -45,7 +45,7 @@ define( 'DB_COLLATE', '' );
  * License:
  */
 
-define('PWA_Base_Link','http://localhost:3000');
+define('PWA_Base_Link','*');
 
 /**#@+
  * Authentication unique keys and salts.
