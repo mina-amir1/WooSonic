@@ -122,4 +122,14 @@ else
     echo -e "\033[1;32mMySQL row updated successfully. \xE2\x9C\x94\033[0m"
 fi
 
+#Rebuild the remix project
+output=$(docker exec -it pwa-remix sh -c "npm run build" 2>&1)
+exit_code=$?
+# Check if any error occurred
+if [ $exit_code -ne 0 ]; then
+    echo -e "\033[1;31mError: Failed to rebuild Remix. \xE2\x9D\x8C\033[0m \n Details: $output"
+    exit 1
+else
+    echo -e "\033[1;32mRemix Rebuilt successfully. \xE2\x9C\x94\033[0m"
+fi
 echo -e "\033[1;32mConfiguration completed for $environment environment. \xE2\x9C\x94\033[0m"
