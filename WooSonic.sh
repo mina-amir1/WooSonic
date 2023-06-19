@@ -59,7 +59,7 @@ prompt_for_password() {
     read -s -p "Enter your root password: " password
     echo
 }
-prompt_for_password
+#prompt_for_password
 # Check if Docker is already installed
 if ! check_docker_installed; then
     # Install Docker
@@ -102,13 +102,13 @@ done
 read -p "Enter the new domain: " new_domain
 
 # Update the NGINX configuration file with the new domain
-echo "$password" | sudo -S sed -i '9s|.*|   server_name pwa.'"$new_domain"';|' "$nginx_conf_file"
-echo "$password" | sudo -S sed -i '24s|.*|  server_name backend.'"$new_domain"';|' "$nginx_conf_file"
+sudo  sed -i '9s|.*|   server_name pwa.'"$new_domain"';|' "$nginx_conf_file"
+sudo  sed -i '24s|.*|  server_name backend.'"$new_domain"';|' "$nginx_conf_file"
 echo -e "\033[1;32mNginx configured Successfully. \xE2\x9C\x94\033[0m"
 
 # Bring up containers using Docker Compose
 echo "Bringing up containers for $environment environment..."
-echo "$password" | sudo -S docker-compose -f "$compose_file" up -d
+sudo  docker-compose -f "$compose_file" up -d
 
 sleep 2
 # Update the MySQL database with the new domain
