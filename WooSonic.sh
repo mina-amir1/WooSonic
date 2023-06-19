@@ -102,7 +102,7 @@ done
 read -p "Enter the new domain: " new_domain
 
 # Update the NGINX configuration file with the new domain
-echo "$password" | sudo -S sed -i '9s|.*|   server_name '"$new_domain"';|' "$nginx_conf_file"
+echo "$password" | sudo -S sed -i '9s|.*|   server_name pwa.'"$new_domain"';|' "$nginx_conf_file"
 echo "$password" | sudo -S sed -i '24s|.*|  server_name backend.'"$new_domain"';|' "$nginx_conf_file"
 echo -e "\033[1;32mNginx configured Successfully. \xE2\x9C\x94\033[0m"
 
