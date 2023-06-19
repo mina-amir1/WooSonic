@@ -106,14 +106,9 @@ echo "$password" | sudo -S sed -i '9s|.*|   server_name '"$new_domain"';|' "$ngi
 echo "$password" | sudo -S sed -i '24s|.*|  server_name backend.'"$new_domain"';|' "$nginx_conf_file"
 echo -e "\033[1;32mNginx configured Successfully. \xE2\x9C\x94\033[0m"
 
-# Check if the containers are already running
-if docker ps --filter "name=pwa-remix" --format "{{.Names}}" | grep -q "pwa-remix"; then
-    echo -e "\033[1;32mContainers are already running. \xE2\x9C\x94\033[0m"
-else
 # Bring up containers using Docker Compose
 echo "Bringing up containers for $environment environment..."
 echo "$password" | sudo -S docker-compose -f "$compose_file" up -d
-fi
 
 # Update the MySQL database with the new domain
 output=$(docker exec -i pwa-db mysql -uroot -pexample -e "use pwa; update wp_options set option_value ='https://$new_domain' where option_id in (1,2);" 2>&1)
