@@ -5,9 +5,9 @@ import Dots from "~/components/Dots";
 export default function forgot() {
   return (
     <div>
-      <section className="bg-[#F4F7FF] py-20 lg:py-[120px]">
+      <section className="py-20 lg:py-[120px]">
         <div className="container mx-auto">
-          <div className="flex flex-wrap -mx-4">
+          <div className="flex flex-wrap -mx-4 min-w-[525px]">
             <div className="w-full px-4">
               <div
                 className="relative mx-auto max-w-[525px] overflow-hidden rounded-lg bg-white py-16 px-10 text-center sm:px-12 md:px-[60px]"

@@ -1,6 +1,6 @@
 import { Link } from '@remix-run/react';
 import { useTranslation } from 'react-i18next';
-import { FormatCurrency } from '~/utils/FormatCurrency'
+import FormatCurrency from '~/utils/FormatCurrency'
 import Status from './Status'
 
 type OrderStatus =
@@ -25,6 +25,7 @@ interface Order {
 export default function OrdersTableRow({ order }: { order: Order }) {
     const { t } = useTranslation();
     const { order_id, order_date, order_status, order_total } = order;
+    const translatedStatus = t(`status.${order_status}`);
 
     return (
         <tr>
@@ -40,7 +41,7 @@ export default function OrdersTableRow({ order }: { order: Order }) {
                 </div>
             </td>
             <td>
-                <div className="py-2">{FormatCurrency(order_total)}</div>
+                <div className="py-2"><FormatCurrency value={order_total}/></div>
             </td>
             <td>
                 <div className="py-2">

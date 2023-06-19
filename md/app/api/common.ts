@@ -16,7 +16,7 @@ export async function getOrderInfo(orderID: number) {
   try {
     const response = await fetch(url, options);
     const result = await response.json();
-    console.log('result',result)
+    // console.log('result',result)
     return result;
   } catch (error) {
     console.error("Error:", error);

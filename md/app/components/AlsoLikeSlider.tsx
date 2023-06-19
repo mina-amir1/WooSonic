@@ -94,9 +94,9 @@ export default function AlsoLikeSlider() {
     const categorySlug = 'clothing';
     const count = 5
     useEffect(() => {
-        console.log('FETCHING')
+        // console.log('FETCHING')
         if (inView) {
-            console.log('FETCHING 1 if')
+            // console.log('FETCHING 1 if')
             const fetchData = async () => {
                 setLoading(true);
                 try {
@@ -111,7 +111,7 @@ export default function AlsoLikeSlider() {
 
             fetchData();
         } else {
-            console.log('FETCHING 1 else')
+            // console.log('FETCHING 1 else')
         }
     }, [categorySlug, count, inView]);
 

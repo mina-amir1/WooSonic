@@ -1,7 +1,7 @@
 import { Link } from '@remix-run/react';
 import { memo, useEffect, useState } from 'react'
 import { getProductBySlug } from '~/api/products';
-import { FormatCurrency } from '~/utils/FormatCurrency';
+import FormatCurrency from '~/utils/FormatCurrency';
 import MiniCartItemLoader from './MiniCartItemLoader';
 
 interface Product {
@@ -84,7 +84,7 @@ const MiniCartItem = ({ id, quantity, slug, thumbnail, removeFromCart, price }: 
                                     <Link to={`/products/${slug}`}>{title}</Link>
                                 </h3>
                                 <div>
-                                    <p className="ml-4">{FormatCurrency(salePrice * quantity)}</p>
+                                    <p className="ml-4"><FormatCurrency value={(salePrice * quantity)}/></p>
                                 </div>
                             </div>
                             {variation ?
@@ -97,12 +97,12 @@ const MiniCartItem = ({ id, quantity, slug, thumbnail, removeFromCart, price }: 
                             <div className="flex flex-col">
                                 {salePrice !== null && salePrice != productPrice ? (
                                     <p className="">
-                                        <span className="align-middle">{FormatCurrency(salePrice)}</span>
-                                        <del className="ml-2 text-xs text-red-400 line-through align-middle">{FormatCurrency(productPrice)}</del>
+                                        <span className="align-middle"><FormatCurrency value={salePrice}/></span>
+                                        <del className="ml-2 text-xs text-red-400 line-through align-middle"><FormatCurrency value={productPrice}/></del>
                                     </p>
                                 ) : (
                                     <p className="">
-                                        {FormatCurrency(price)}
+                                        <FormatCurrency value={price}/>
                                     </p>
                                 )}
                                 <p className="text-gray-500">Quantity: {quantity}</p>

@@ -1,7 +1,7 @@
 import { json, MetaFunction } from "@remix-run/node";
 import { LoaderFunction } from "@remix-run/cloudflare"
 import { useLoaderData } from "@remix-run/react";
-import { ProductWidget } from "~/components/product/ProductWidget";
+import ProductWidget from "~/components/product/ProductWidget";
 import { v4 } from 'uuid';
 import React, { useEffect, useState } from "react";
 import Breadcrumbs from "~/components/Breadcrumbs";
@@ -30,29 +30,45 @@ export const loader: LoaderFunction = async ({ request }) => {
     const maxPrice = Number(searchParams.get("maxPrice")) || 500000;
     let selectedCategories = searchParams.get("selectedCategories") || "";
     const perPage = 20;
-
+  
     try {
-        const response = await getFilterProducts(
-            selectedCategories,
-            pageNumber,
-            perPage,
-            minPrice,
-            maxPrice
-        );
-        const filteredProducts = await response;
-        return json({
-            filteredProducts,
-        });
+      // Start the Server-Timing measurement
+      const start = process.hrtime();
+      
+      const response = await getFilterProducts(
+        selectedCategories,
+        pageNumber,
+        perPage,
+        minPrice,
+        maxPrice
+      );
+      const filteredProducts = await response;
+  
+      // Calculate the elapsed time
+      const elapsed = process.hrtime(start);
+      const responseTime = Math.round(elapsed[0] * 1000 + elapsed[1] / 1e6);
+  
+      // Create the Server-Timing header value
+      const serverTiming = `total;dur=${responseTime}`;
+      
+      // Create the response with the Server-Timing header
+      return new Response(JSON.stringify({ filteredProducts }), {
+        headers: {
+          "Content-Type": "application/json",
+          "Server-Timing": serverTiming,
+        },
+      });
     } catch (error) {
-        console.log("error", error);
-        return new Response("Internal Server Error", { status: 500 });
+      console.log("error", error);
+      return new Response("Internal Server Error", { status: 500 });
     }
-};
-
+  };
+  
 
 
 export default function shop() {
     const { t } = useTranslation();
+    const [isLoadingPage, setIsLoadingPage] = useState(true); // State for simulating page loading
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
     const [grid, setGrid] = useState(false);
     const cat = 'Category';
@@ -71,7 +87,7 @@ export default function shop() {
     const [pageNumber, setPageNumber] = useState(1);
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(500000);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [isLoadMoreEnabled, setIsLoadMoreEnabled] = useState(true);
     const [selectedSortOption, setSelectedSortOption] = useState({
         criteria: "date",
@@ -83,7 +99,7 @@ export default function shop() {
         fetchProducts(false, selectedCategories, option);
     };
 
-    console.log('selectedCategories', selectedCategories);
+    // console.log('selectedCategories', selectedCategories);
     const debounce = (func: (...args: any[]) => void, delay: number) => {
         let timer: NodeJS.Timeout;
         return (...args: any[]) => {
@@ -203,63 +219,78 @@ export default function shop() {
         { value: 'nuts', label: 'nuts', checked: false },
         { value: 'raw-nuts', label: 'raw-nuts', checked: false },
     ]
+    useEffect(() => {
+        // Simulate page loading
+        const loadingTimeout = setTimeout(() => {
+            setIsLoadingPage(false);
+            setIsLoading(false);
+        }, 1500);
+
+        return () => {
+            clearTimeout(loadingTimeout);
+        };
+    }, []);
     // console.log('products>>', products);
     return (
         <div className="bg-white">
             <main className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div className='pt-5 '>
-                    {/* <span>{products.length}</span> */}
-                    <ShopListTop grid={grid} setGrid={setGrid} setMobileFiltersOpen={setMobileFiltersOpen} title={'Shop All'} handleSortOptionChange={handleSortOptionChange} />
-                    {/* <input type="number" name="minPrice" onChange={handleMinPriceChange} />
-                    <input type="number" name="maxPrice" onChange={handleMaxPriceChange} /> */}
-                    {/* <button onClick={fetchProducts}>Reload Data</button> */}
-                    <Breadcrumbs breadcrumbs={breadcrumbs.pages} className="pb-4 border-b border-gray-200" />
-                    <section aria-labelledby="products-heading" className="pt-6 pb-24">
-                        <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
-                            <Filters
-                                filteredProducts={products}
-                                selectedCategories={selectedCategories}
-                                handleMinPriceChange={handleMinPriceChange}
-                                handleMaxPriceChange={handleMaxPriceChange}
-                                handleSelectedCategoriesChange={handleSelectedCategoriesChange}
-                                categories={categories}
-                            />
-                            {/* Product grid */}
-                            <div className="relative z-10 lg:col-span-3">
-                                <div className={classNames(
-                                    grid ? 'sm:grid-cols-1 lg:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-4',
-                                    'grid grid-cols-1 gap-y-10 gap-x-6 xl:gap-x-8 mt-6 relative'
-                                )}
-                                >
-                                    {isLoading ? (
-                                        <div className="absolute inset-0 z-20 flex items-start justify-center pt-20 bg-gray-200 bg-opacity-75">
-                                            <Loader />
-                                        </div>
-                                    ) : ('')}
-                                    {products && products.map((productData: any) => (
-                                        <React.Fragment key={v4()}>
-                                            <ProductWidget product={productData} />
-                                        </React.Fragment>
-                                    ))}
-                                </div>
-                                {isLoadMoreEnabled &&
-                                    <div className="flex items-center justify-center mt-10 loadmore">
-
-                                        <button onClick={handleLoadMore} date-num={pageNumber} type="button" className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded text-sm px-5 py-2.5 text-center mr-2 inline-flex items-center justify-center whitespace-nowrap">
-                                            {!isLoading ? (
-                                                'Load More'
-                                            ) : (
-                                                <>
-                                                    <Loader extraclass={'w-4 h-4 mr-2'} />
-                                                    Loading...
-                                                </>
-                                            )}
-                                        </button>
-                                    </div>
-                                }
-                            </div>
+                <div className='pt-5'>
+                    {isLoadingPage ? (
+                        <div className="flex justify-center items-center h-screen">
+                            <Loader />
                         </div>
-                    </section>
+                    ) : (
+                        <>
+                            <ShopListTop grid={grid} setGrid={setGrid} setMobileFiltersOpen={setMobileFiltersOpen} title={'Shop All'} handleSortOptionChange={handleSortOptionChange} />
+                            <Breadcrumbs breadcrumbs={breadcrumbs.pages} className="pb-4 border-b border-gray-200" />
+                            <section aria-labelledby="products-heading" className="pt-6 pb-24">
+                                <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
+                                    <Filters
+                                        filteredProducts={products}
+                                        selectedCategories={selectedCategories}
+                                        handleMinPriceChange={handleMinPriceChange}
+                                        handleMaxPriceChange={handleMaxPriceChange}
+                                        handleSelectedCategoriesChange={handleSelectedCategoriesChange}
+                                        categories={categories}
+                                    />
+                                    {/* Product grid */}
+                                    <div className="relative z-10 lg:col-span-3">
+                                        <div className={classNames(
+                                            grid ? 'sm:grid-cols-1 lg:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-4',
+                                            'grid grid-cols-1 gap-y-10 gap-x-6 xl:gap-x-8 mt-6 relative'
+                                        )}
+                                        >
+                                            {isLoading ? (
+                                                <div className="absolute inset-0 z-20 flex items-start justify-center pt-20 bg-gray-200 bg-opacity-75">
+                                                    <Loader />
+                                                </div>
+                                            ) : ('')}
+                                            {Array.isArray(products) && products.map((productData: any) => (
+                                                <React.Fragment key={v4()}>
+                                                    <ProductWidget product={productData} />
+                                                </React.Fragment>
+                                            ))}
+                                        </div>
+                                        {isLoadMoreEnabled &&
+                                            <div className="flex items-center justify-center mt-10 loadmore">
+
+                                                <button onClick={handleLoadMore} date-num={pageNumber} type="button" className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded text-sm px-5 py-2.5 text-center mr-2 inline-flex items-center justify-center whitespace-nowrap">
+                                                    {!isLoading ? (
+                                                        'Load More'
+                                                    ) : (
+                                                        <>
+                                                            <Loader extraclass={'w-4 h-4 mr-2'} />
+                                                            Loading...
+                                                        </>
+                                                    )}
+                                                </button>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </section>
+                        </>
+                    )}
                 </div>
             </main>
         </div>

@@ -18,9 +18,9 @@ import Breadcrumbs from "~/components/Breadcrumbs";
 import Stars from "~/components/Stars";
 import SelectColor from "~/components/product/SelectColor";
 import SelectSize from "~/components/product/SelectSize";
-import { FormatCurrency } from "~/utils/FormatCurrency";
+import FormatCurrency from "~/utils/FormatCurrency";
 import Frequently from "~/components/Frequently";
-import useRecentView from "~/stores/wishtList";
+import { useProductStore } from "~/stores/product";
 import RecentlyViewedProducts from "~/components/RecentlyViewedProducts";
 import Accordion from "~/components/Accordion";
 import { getSelectedCurrency } from "~/utils/currencyUtils";
@@ -115,7 +115,7 @@ export default function ProductSingle() {
         addToRecent,
         addToWishlist,
         wishlistItems
-    } = useRecentView();
+    } = useProductStore();
     const isWishlist = wishlistItems?.some((item) => item.id === product.id);
 
     const handleWishlistClick = () => {
@@ -171,7 +171,7 @@ export default function ProductSingle() {
     // console.log('variation',variation)
     return (
         <div>
-            <section className="pt-12 pb-24 overflow-hidden rounded-b-10xl">
+            <section className="pt-12 pb-24 overflow-hidden rounded-b-10xl bg-white">
                 {/* Add the JSON-LD script tag with the structured data */}
                 <script
                     type="application/ld+json"
@@ -211,12 +211,12 @@ export default function ProductSingle() {
                                     </h3>
                                     {salePrice && salePrice !== productPrice ? (
                                         <p className="text-2xl text-gray-900">
-                                            <span className="align-middle">{FormatCurrency(salePrice, getSelectedCurrency())}</span>
-                                            <del className="ml-2 text-base text-red-400 line-through align-middle">{FormatCurrency(productPrice, getSelectedCurrency())}</del>
+                                            <span className="align-middle"><FormatCurrency value={salePrice}/></span>
+                                            <del className="ml-2 text-base text-red-400 line-through align-middle"><FormatCurrency value={(productPrice)}/></del>
                                         </p>
                                     ) : (
                                         <p className="text-2xl text-gray-900">
-                                            {FormatCurrency(productPrice, getSelectedCurrency())}
+                                            <FormatCurrency value={(productPrice)}/>
                                         </p>
                                     )}
                                 </div>

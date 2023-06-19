@@ -1,4 +1,3 @@
-import type { LinksFunction, MetaFunction } from "@remix-run/cloudflare";
 import {
   Link,
   Links,
@@ -15,33 +14,37 @@ import {
 import styles from './tailwind.[hash].css';
 import stylesRtl from './tailwind.rtl.[hash].css';
 import stylesBase from './base.css';
+import criticalCSS from './critical.css';
 import stylesSlick from 'slick-carousel/slick/slick.css';
 import stylesSlickTheme from 'slick-carousel/slick/slick-theme.css';
 import Footer from "./layouts/footer";
 import NavBar from "./layouts/navbar";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
 import i18n from 'i18next';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from "./components/LanguageSwitcher";
 import { initFacebookPixel } from './fb-pixel';
 import { FB_PIXELCODE } from "./config";
+import { CurrencyProvider } from "./CurrencyContext";
 
 
 
-export const links: LinksFunction = () => {
+export const links = () => {
+  const isSingleProductPage = typeof window !== "undefined" && window.location.pathname.startsWith("/products/");
+
   return [
+    { rel: 'preload', as: 'style', href: criticalCSS },
     { rel: 'preload', as: 'style', href: stylesBase },
-    { rel: 'preload', as: 'style', href: stylesSlick },
-    { rel: 'preload', as: 'style', href: stylesSlickTheme },
-    // { rel: 'preload', as: 'style', href: stylesSlickTheme },
-    // { rel: 'preload', as: 'style', href: stylesSlickTheme },
+    isSingleProductPage ? { rel: 'preload', as: 'style', href: stylesSlick } : null,
+    isSingleProductPage ? { rel: 'preload', as: 'style', href: stylesSlickTheme } : null,
+    { rel: 'stylesheet', href: criticalCSS },
     { rel: 'stylesheet', href: stylesBase },
-    { rel: 'stylesheet', href: stylesSlick },
-    { rel: 'stylesheet', href: stylesSlickTheme }
-  ];
+    isSingleProductPage ? { rel: 'stylesheet', href: stylesSlick } : null,
+    isSingleProductPage ? { rel: 'stylesheet', href: stylesSlickTheme } : null
+  ].filter(Boolean);
 }
 
-export const meta: MetaFunction = () => ({
+export const meta = () => ({
   charset: "utf-8",
   title: "PWA",
   viewport: "width=device-width,initial-scale=1",
@@ -58,29 +61,60 @@ export default function App() {
   if (typeof window !== "undefined") {
     initFacebookPixel(FB_PIXELCODE);
   }
-  
-  console.log('NODE_ENV',process.env.NODE_ENV);
 
+  console.log('NODE_ENV', process.env.NODE_ENV);
+  // const mainRef = useRef(null);
+  const mainRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function calculateMainHeight() {
+      const screenHeight = window.innerHeight;
+      const navbarElement = document.querySelector('header');
+      const footerElement = document.querySelector('footer');
+    
+      if (navbarElement && footerElement && mainRef.current) {
+        const navbarHeight = navbarElement.offsetHeight;
+        const footerHeight = footerElement.offsetHeight;
+        const minHeight = 700; // Specify your desired minimum height here
+        const mainHeight = Math.max(screenHeight - navbarHeight - footerHeight, minHeight);
+        mainRef.current.style.minHeight = `${mainHeight}px`;
+      }
+    }
+    
+
+    if (typeof window !== 'undefined') {
+      calculateMainHeight();
+      window.addEventListener('resize', calculateMainHeight);
+
+      return () => {
+        window.removeEventListener('resize', calculateMainHeight);
+      };
+    }
+  }, []);
 
   return (
+    <CurrencyProvider>
     <html lang={language} dir={i18n.language === "ar" ? 'rtl' : 'ltr'}>
       <head>
         <Meta />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400;500;600;700;800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet" />
         <Links />
         <link rel="stylesheet" href={i18n.language === "ar" ? stylesRtl : styles} />
       </head>
-      <body className="box-border oultine-none">
+      <body className={`box-border oultine-none ${i18n.language === "ar" ? 'font-sans-ar rtl' : 'font-sans-en ltr'}`}>
         <NavBar
         />
-        <main className="relative z-10">
+        <main className="relative z-10 bg-gray-100" ref={mainRef}>
           <Outlet />
         </main>
         <Footer />
         <ScrollRestoration />
         <Scripts />
-        {/* {process.env.NODE_ENV === 'development' ? <LiveReload /> : null} */}
+        {process.env.NODE_ENV === 'development' ? <LiveReload /> : null}
       </body>
     </html >
+    </CurrencyProvider>
   );
 }
 

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import useShoppingCart from '~/stores/cartStore';
+import { useShoppingCart } from '~/stores/cartStore';
 
 export default function CouponForm() {
     const { addCoupon } = useShoppingCart();

@@ -5,7 +5,7 @@ import { getCategoryProducts, getFilterProducts } from "~/models/category.server
 import React, { useEffect, useState } from "react";
 import { v4 } from 'uuid';
 import Breadcrumbs from "~/components/Breadcrumbs";
-import { ProductWidget } from "~/components/product/ProductWidget";
+import ProductWidget from "~/components/product/ProductWidget";
 import { ProductWidgetWithVariation } from "~/components/product/ProductWidgetWithVariation";
 import { API_ENDPOINT, Site_Title } from "~/config";
 import { useTranslation } from "react-i18next";

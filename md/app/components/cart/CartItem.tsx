@@ -2,7 +2,7 @@ import { MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Link } from '@remix-run/react';
 import { useEffect, useState } from 'react'
 import { getProductBySlug } from '~/api/products';
-import { FormatCurrency } from '~/utils/FormatCurrency';
+import FormatCurrency from '~/utils/FormatCurrency';
 import CartItemLoader from './CartItemLoader';
 
 interface CartItemProps {
@@ -118,11 +118,11 @@ const CartItem = ({ id, quantity, slug, thumbnail, removeFromCart, decreaseCartQ
                             {salePrice !== null && salePrice != productPrice ? (
                                 <p className="flex flex-col-reverse text-xl text-gray-900">
                                     <span className="align-middle">{FormatCurrency(salePrice)}</span>
-                                    <del className="ml-2 text-base text-red-400 line-through align-middle">{FormatCurrency(productPrice)}</del>
+                                    <del className="ml-2 text-base text-red-400 line-through align-middle"><FormatCurrency value={productPrice}/></del>
                                 </p>
                             ) : (
                                 <p className="text-xl text-gray-900">
-                                    {FormatCurrency(productPrice)}
+                                    <FormatCurrency value={productPrice}/>
                                 </p>
                             )}
                         </div>

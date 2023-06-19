@@ -23,8 +23,7 @@ export default function ChangeLanguage() {
             <Menu as="div" className="relative z-20 inline-block text-left">
                 <div>
                     <Menu.Button className="inline-flex items-center justify-center text-sm font-medium text-gray-700 group hover:text-gray-900">
-                        <span className="block ml-3 text-sm font-medium">English</span>
-                        <span className="sr-only">, change language</span>
+                        <span className="block ml-3 text-sm font-medium">{i18n.language === 'en' ? 'English' : 'العربية'}</span>
                     </Menu.Button>
                 </div>
 
@@ -41,7 +40,7 @@ export default function ChangeLanguage() {
                         <div className="py-1">
                             <Menu.Item key={v4()}>
                                 {({ active }) => (
-                                    <div className='flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-gray-100'>
+                                    <div className='flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-gray-100 cursor-pointer'>
                                         <span className="block ml-3" onClick={() => handleChangeLanguage('en')}>English</span>
                                     </div>
                                 )}
@@ -51,10 +50,10 @@ export default function ChangeLanguage() {
                                     <div
                                         className={classNames(
                                             active ? 'bg-gray-100' : '',
-                                            'flex justify-center px-4 py-2 text-sm font-medium text-gray-900 w-full cursor-pointer'
+                                            'flex justify-center px-4 py-2 text-sm font-medium text-gray-900 bg-gray-100 w-full cursor-pointer'
                                         )}
                                     >
-                                        <span className="block ml-3" onClick={() => handleChangeLanguage('ar')}>العربيه</span>
+                                        <span className="block ml-3 font-sans-ar" onClick={() => handleChangeLanguage('ar')}>العربيه</span>
                                     </div>
                                 )}
                             </Menu.Item>

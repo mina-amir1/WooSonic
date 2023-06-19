@@ -1,6 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { v4 } from 'uuid';
 
 
@@ -9,34 +10,40 @@ function classNames(...classes: string[]) {
 }
 
 export default function Sort({ onSortOptionChange }: any) {
+    const { t, i18n } = useTranslation();
     const sortOptions = [
-        { name: 'Newest', criteria: 'date', arrangement: 'DESC', current: true },
-        { name: 'Oldest', criteria: 'date', arrangement: 'ASC', current: false },
-        { name: 'Price: Low to High', criteria: 'price', arrangement: 'ASC', current: false },
-        { name: 'Price: High to Low', criteria: 'price', arrangement: 'DESC', current: false },
+        { name: t('sortOptions.newest'), criteria: 'date', arrangement: 'DESC', current: true },
+        { name: t('sortOptions.oldest'), criteria: 'date', arrangement: 'ASC', current: false },
+        { name: t('sortOptions.priceLowToHigh'), criteria: 'price', arrangement: 'ASC', current: false },
+        { name: t('sortOptions.priceHighToLow'), criteria: 'price', arrangement: 'DESC', current: false },
     ];
+    
     const [selectedSortOption, setSelectedSortOption] = useState(sortOptions.find(option => option.current));
-
+    const [selectedSortOptionName, setSelectedSortOptionName] = useState('');
+  
     const handleSortOptionClick = (option: any) => {
-        setSelectedSortOption((prevOption) => {
-            const updatedOptions = sortOptions.map((sortOption) => {
-                return {
-                    ...sortOption,
-                    current: sortOption === option,
-                };
-            });
-            onSortOptionChange(option);
-            return updatedOptions.find((sortOption) => sortOption.current);
+      setSelectedSortOption((prevOption) => {
+        const updatedOptions = sortOptions.map((sortOption) => {
+          return {
+            ...sortOption,
+            current: sortOption === option,
+          };
         });
+        onSortOptionChange(option);
+        return updatedOptions.find((sortOption) => sortOption.current);
+      });
     };
-
-
-    console.log('sortOptions', sortOptions)
-    return (
+  
+    useEffect(() => {
+      if (selectedSortOption) {
+        setSelectedSortOptionName(t(selectedSortOption.name));
+      }
+    }, [selectedSortOption, t]);
+      return (
         <Menu as="div" className="relative z-20 inline-block text-left">
             <div>
                 <Menu.Button className="inline-flex justify-center text-sm font-medium text-gray-700 group hover:text-gray-900">
-                    {selectedSortOption.name}
+                    {selectedSortOptionName}
                     <ChevronDownIcon
                         className="flex-shrink-0 w-5 h-5 ml-1 -mr-1 text-gray-400 group-hover:text-gray-500"
                         aria-hidden="true"
@@ -66,7 +73,7 @@ export default function Sort({ onSortOptionChange }: any) {
                                         )}
                                         onClick={() => handleSortOptionClick(option)}
                                     >
-                                        {option.name}
+                                        {t(option.name)}
                                     </span>
                                 )}
                             </Menu.Item>

@@ -1,10 +1,17 @@
 import { persistentAtom } from "@nanostores/persistent";
 import { useStore } from "@nanostores/react";
-// import { createAtom } from 'nanostores';
+import { useState } from "react";
 
+export type Item = {
+  id: number;
+  quantity: number;
+  name: string;
+  slug?: string;
+  thumbnail?: string;
+  main_img?: string;
+  price?: string;
+};
 
-
-// Create a Nanostores atom to manage the recent products list
 const recentProductsAtom = persistentAtom<Item[]>("recent-products", [], {
   listen: true,
   encode: JSON.stringify,
@@ -17,31 +24,14 @@ const wishlistItemsAtom = persistentAtom<Item[]>("wishlist-items", [], {
   decode: JSON.parse,
 });
 
-// Export the recent products atom
-// export default recentProductsAtom;
-
-export type Item = {
-  id: number;
-  quantity: number;
-  name: string;
-  slug?: string;
-  thumbnail?: string;
-  main_img?: string;
-  price?: string;
-};
-
-export const useRecentView = () => {
-  if (typeof window === "undefined") {
-    return {
-      addToRecent: () => null,
-      recentItems: [],
-    };
-  }
+export const useProductStore = () => {
   const recentStore = useStore(recentProductsAtom);
   const wishlistStore = useStore(wishlistItemsAtom);
+  const [recentItems, setRecentItems] = useState<Item[]>(recentStore ?? []);
+  const [wishlistItems, setWishlistItems] = useState<Item[]>(wishlistStore ?? []);
 
   const addToRecent = (product: Item) => {
-    const itemIndex = recentStore.findIndex(
+    const itemIndex = recentItems.findIndex(
       (item: Item) =>
         item.id === product.id &&
         item.slug === product.slug &&
@@ -51,12 +41,12 @@ export const useRecentView = () => {
     );
 
     if (itemIndex !== -1) {
-      const newRecentItems = [...recentStore];
+      const newRecentItems = [...recentItems];
       newRecentItems[itemIndex].quantity++;
-      recentProductsAtom.set(newRecentItems);
+      setRecentItems(newRecentItems);
     } else {
-      recentProductsAtom.set([
-        ...recentStore,
+      setRecentItems([
+        ...recentItems,
         {
           id: product.id,
           slug: product.slug,
@@ -68,30 +58,25 @@ export const useRecentView = () => {
     }
   };
 
-
   const addToWishlist = (product: Item) => {
-    const isItemInWishlist = wishlistStore.some(
-      (item: Item) => item.id === product.id
+    const isItemInWishlist = wishlistItems.some(
+      (item: Item) => String(item.id) === String(product.id)
     );
 
     if (isItemInWishlist) {
-      // Item already exists in wishlist, remove it
-      const newWishlistItems = wishlistStore.filter(
-        (item: Item) => item.id !== product.id
+      const newWishlistItems = wishlistItems.filter(
+        (item: Item) => String(item.id) !== String(product.id)
       );
-      wishlistItemsAtom.set(newWishlistItems);
+      setWishlistItems(newWishlistItems);
     } else {
-      // Item is not in wishlist, add it
-      wishlistItemsAtom.set([...wishlistStore, product]);
+      setWishlistItems([...wishlistItems, product]);
     }
   };
 
   return {
-    recentItems: recentStore ?? [],
+    recentItems,
     addToRecent,
-    wishlistItems: wishlistStore ?? [],
+    wishlistItems,
     addToWishlist,
   };
 };
-
-export default useRecentView;

@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import useShoppingCart from "~/stores/cartStore";
-import { FormatCurrency } from "~/utils/FormatCurrency";
+import { useShoppingCart } from "~/stores/cartStore";
+import FormatCurrency from "~/utils/FormatCurrency";
 import MiniCartItem from "../cart/MiniCartItem";
 
 const CartSummary = ({ thanks, rate }: any) => {
@@ -36,11 +36,11 @@ const CartSummary = ({ thanks, rate }: any) => {
                     <dl className="px-4 py-6 space-y-6 border-t border-gray-200 sm:px-6">
                         <div className="flex items-center justify-between">
                             <dt className="text-sm">Subtotal</dt>
-                            <dd className="text-sm font-medium text-gray-900">{FormatCurrency(totalSubTotal)}</dd>
+                            <dd className="text-sm font-medium text-gray-900"><FormatCurrency value={(totalSubTotal)}/></dd>
                         </div>
                         <div className="flex items-center justify-between">
                             <dt className="text-sm">Shipping</dt>
-                            <dd className="text-sm font-medium text-gray-900">{shippingFees !== 0 ? FormatCurrency(shippingFees) : 'Free'}</dd>
+                            <dd className="text-sm font-medium text-gray-900">{shippingFees !== 0 ? <FormatCurrency value={(shippingFees)}/> : 'Free'}</dd>
                         </div>
                         {/* <div className="flex items-center justify-between">
                             <dt className="text-sm">Taxes</dt>
@@ -49,14 +49,14 @@ const CartSummary = ({ thanks, rate }: any) => {
                         {totalDiscountAPI > 0 ?
                             <div className="flex items-center justify-between">
                                 <dt className="text-sm text-red-400">Discount</dt>
-                                <dd className="text-sm font-medium text-red-400">-{FormatCurrency(totalDiscountAPI)}</dd>
+                                <dd className="text-sm font-medium text-red-400">-<FormatCurrency value={(totalDiscountAPI)}/></dd>
                             </div>
                             :
                             ''
                         }
                         <div className="flex items-center justify-between pt-6 border-t border-gray-200">
                             <dt className="text-base font-medium">Total</dt>
-                            <dd className="text-base font-medium text-gray-900">{FormatCurrency(totalAmount)}</dd>
+                            <dd className="text-base font-medium text-gray-900"><FormatCurrency value={(totalAmount)}/></dd>
                         </div>
                         {thanks ?
                             <div>

@@ -25,7 +25,7 @@ const isShoppingCartOpen = persistentAtom<boolean>(
   false,
   {
     listen: false,
-    defaultValue: false, // set the default value to false
+    // defaultValue: false, // set the default value to false
     encode: (value) => String(value),
     decode: (value) =>
       value === null || value === undefined ? false : Boolean(value),
@@ -35,10 +35,13 @@ const isShoppingCartOpen = persistentAtom<boolean>(
 const calculateTotalPrice = (cartItems: CartItem[]) => {
   let price = 0;
   cartItems.forEach((item) => {
-    price += (parseFloat(item.price) || 0) * item.quantity;
+    if (typeof item.price === 'string') {
+      price += (parseFloat(item.price) || 0) * item.quantity;
+    }
   });
   return price;
 };
+
 
 export const getCart = () => {
   console.log("called getCart 1");
@@ -57,7 +60,7 @@ export const getCart = () => {
     })
       .then((response) => {
         if (response.ok) {
-          console.log("response get CART", response);
+          // console.log("response get CART", response);
           return response.json();
         } else {
           throw new Error("Failed to update quantity in cart");
@@ -343,16 +346,16 @@ export const useShoppingCart = () => {
     setTotalPrice(calculateTotalPrice(cartStore));
   }, [cartStore]);
 
-  useEffect(() => {
-    getCart()
-      .then(({ total, total_discount }) => {
-        setTotalAPI(total);
-        setTotalDiscountAPI(total_discount);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   getCart()
+  //     .then(({ total, total_discount }) => {
+  //       setTotalAPI(total);
+  //       setTotalDiscountAPI(total_discount);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // }, []);
 
   return {
     getItemQuantity,

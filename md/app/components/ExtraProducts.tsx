@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { getExtraProducts } from '~/api/extraProducts';
 import ProductLoader from './product/ProductLoader';
-import { ProductWidget } from './product/ProductWidget';
+import ProductWidget from './product/ProductWidget';
 
 interface Props {
     categorySlug: string;

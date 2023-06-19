@@ -2,7 +2,7 @@
 export default function TrackOrder() {
   return (
     <div>
-      <section className="bg-[#F4F7FF] py-20 lg:py-[120px]">
+      <section className="bg-gray-100 py-20 lg:py-[120px]">
         <div className="container mx-auto">
           <div className="flex flex-wrap -mx-4">
             <div className="w-full px-4">

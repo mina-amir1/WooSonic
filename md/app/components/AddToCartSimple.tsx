@@ -1,4 +1,5 @@
 import { MinusIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { useTranslation } from "react-i18next";
 import { trackAddToCart } from "~/fb-pixel";
 import useShoppingCart, { CartItem } from "~/stores/cartStore";
 // import { TrashIcon } from "@heroicons/24/outline";
@@ -13,6 +14,7 @@ export default function AddToCartSimple({ className, product, disabled }: {
     product: CartItem;
     disabled: boolean;
 }) {
+    const { t, i18n } = useTranslation();
     const {
         getItemQuantity,
         addToCart,
@@ -35,7 +37,7 @@ export default function AddToCartSimple({ className, product, disabled }: {
             )}
         >
             {quantity === 0 ? (
-                "Add to Bag"
+                t('common.add_to_cart')
             ) : (
                 <div className="flex items-center">
                     <span

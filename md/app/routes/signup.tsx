@@ -6,12 +6,12 @@ export default function signup() {
   
   return (
     <div>
-      <section className="bg-[#F4F7FF] py-20 lg:py-[120px]">
-        <div className="container mx-auto">
+      <section className="bg-gray-100 py-20 lg:py-[120px]">
+        <div className="container mx-auto w-[525px] max-w-full">
           <div className="flex flex-wrap -mx-4">
             <div className="w-full px-4">
               <div
-                className="relative mx-auto max-w-[525px] overflow-hidden rounded-lg bg-white py-16 px-10 text-center sm:px-12 md:px-[60px]"
+                className="relative mx-auto max-w-[525px] overflow-hidden rounded-lg bg-white py-16 px-8 text-center sm:px-12"
               >
                 <h1 className="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900">Sign Up</h1>
                 <RegisterForm />

@@ -1,104 +1,26 @@
 import { API_ENDPOINT } from "~/config";
+import Cookies from "js-cookie";
 
-const fetchUserInfo = async (user_id: number) => {
+const sendAuthenticatedRequest = async (
+  endpoint: string,
+  requestData: any,
+  performLoginCheck: boolean = true
+) => {
   try {
-    const apiUrl = `${API_ENDPOINT}/my-account/get-user-info.php`;
-    const requestData = {
-      user_id: user_id,
-    };
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      body: JSON.stringify(requestData),
-      // mode: "cors",
-      // credentials: "include"
-    });
+    const user_id = Cookies.get("user_id");
+    const token = Cookies.get("token");
+    if (performLoginCheck) {
 
-    if (response.ok) {
-      console.log("OK");
-      const responseData = await response.json();
-      return responseData;
-    } else {
-      console.log("Failed to fetch user information");
+    if (!user_id || !token) {
+      console.log("PLZ LOGIN");
       return null;
     }
-  } catch (error) {
-    console.log("An error occurred", error);
-    return null;
   }
-};
-
-const fetchUserOrders = async (user_id: number) => {
-  try {
-    const apiUrl = `${API_ENDPOINT}/my-account/get-user-orders.php`;
-    const requestData = {
-      user_id: user_id,
-    };
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      body: JSON.stringify(requestData),
-      // mode: "cors",
-    });
-
-    if (response.ok) {
-      const responseData = await response.json();
-      const userOrders = responseData.map((orderData) => ({
-        order_id: orderData.order_id,
-        order_date: orderData.order_date,
-        order_status: orderData.order_status,
-        order_total: orderData.order_total,
-      }));
-      return userOrders;
-    } else {
-      console.log("Failed to fetch user orders");
-      return null;
-    }
-  } catch (error) {
-    console.log("An error occurred", error);
-    return null;
-  }
-};
-
-const updateProfile = async (userInfo: any, user_id: number) => {
-  try {
-    const apiUrl = `${API_ENDPOINT}/my-account/edit-profile.php`;
+    const apiUrl = `${API_ENDPOINT}/${endpoint}`;
     const requestBody = {
       user_id: user_id,
-      first_name: userInfo.first_name,
-      last_name: userInfo.last_name,
-      phone: userInfo.phone,
-      birth_day: userInfo.birth_day,
-      birth_month: userInfo.birth_month,
-      birth_year: userInfo.birth_year,
-      gender: userInfo.gender,
-    };
-
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      body: JSON.stringify(requestBody),
-      // mode: "cors",
-      // credentials: "include"
-    });
-
-    if (response.ok) {
-      console.log("Profile updated successfully");
-      // Handle the successful profile update
-    } else {
-      console.log("Failed to update profile");
-      // Handle the case when the API call fails
-    }
-  } catch (error) {
-    console.log("An error occurred", error);
-    // Handle any network or other errors
-  }
-};
-
-const userLogin = async (formData: any) => {
-  try {
-    const apiUrl = `${API_ENDPOINT}/my-account/login.php`;
-    const requestBody = {
-      username: formData.username,
-      password: formData.password,
-      remember: formData.remember,
+      token: token,
+      ...requestData,
     };
 
     const response = await fetch(apiUrl, {
@@ -107,35 +29,91 @@ const userLogin = async (formData: any) => {
     });
 
     if (response.ok) {
-      console.log("Login successfully");
+      // console.log("Request successful");
       const responseData = await response.json();
-      return responseData; // Return the response data
+      return responseData as unknown;
     } else {
-      console.log("Failed to Login");
-      throw new Error("Login failed"); // Throw an error for failed login
+      console.log("Request failed");
+      return null;
     }
   } catch (error) {
     console.log("An error occurred", error);
-    throw error; // Throw the error for further handling
+    return null;
   }
+};
+
+const fetchUserInfo = async () => {
+  return sendAuthenticatedRequest("my-account/get-user-info.php", {});
+};
+
+const fetchUserOrders = async () => {
+  return sendAuthenticatedRequest("my-account/get-user-orders.php", {});
+};
+
+const updateProfile = async (userInfo: any) => {
+  return sendAuthenticatedRequest("my-account/edit-profile.php", userInfo);
+};
+
+const updatePassword = async (currentPassword: string, newPassword: string) => {
+  return sendAuthenticatedRequest('my-account/password/change-password.php', {
+    current_password: currentPassword,
+    new_password: newPassword,
+  });
 };
 
 const forgotPassword = async (user_email: string) => {
+  return sendAuthenticatedRequest("my-account/password/forgot-password.php", {
+    user_email: user_email,
+  });
+};
+
+const userRegister = async (formData: any) => {
+  return sendAuthenticatedRequest("my-account/register.php", formData, false);
+};
+
+const userLogin = async (formData: any) => {
+  const apiUrl = `${API_ENDPOINT}/my-account/login.php`;
+  const requestBody = {
+    username: formData.username,
+    password: formData.password,
+    remember: formData.remember,
+  };
+
   try {
-    const apiUrl = `${API_ENDPOINT}/my-account/password/forgot-password.php`;
-    const requestData = {
-      user_email: user_email,
-    };
     const response = await fetch(apiUrl, {
       method: "POST",
-      body: JSON.stringify(requestData),
+      body: JSON.stringify(requestBody),
     });
 
     if (response.ok) {
+      console.log("Login successful");
       const responseData = await response.json();
       return responseData;
     } else {
-      console.log("Failed forgot");
+      console.log("Login failed");
+      throw new Error("Login failed");
+    }
+  } catch (error) {
+    console.log("An error occurred", error);
+    throw error;
+  }
+};
+
+
+const getAllAddresses = async () => {
+  try {
+    const responseData = await sendAuthenticatedRequest("my-account/addresses/get-all-addresses.php", {});
+
+    if (responseData && Array.isArray(responseData)) {
+      responseData.sort((a, b) => {
+        if (a.status === "default") return -1;
+        if (b.status === "default") return 1;
+        return 0;
+      });
+
+      return responseData;
+    } else {
+      console.log("Invalid response data");
       return null;
     }
   } catch (error) {
@@ -144,36 +122,48 @@ const forgotPassword = async (user_email: string) => {
   }
 };
 
-const register = async ({ formData }: any) => {
-  try {
-    const apiUrl = `${API_ENDPOINT}/my-account/register.php`;
-    const requestBody = {
-      first_name: formData.first_name,
-      last_name: formData.last_name,
-      email: formData.email,
-      phone: formData.phone,
-      password: formData.password,
-      birth_day: parseInt(formData.birth_day),
-      birth_month: parseInt(formData.birth_month),
-      birth_year: parseInt(formData.birth_year),
-      gender: formData.gender,
-    };
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      body: JSON.stringify(requestBody),
-    });
 
-    if (response.ok) {
-      const responseData = await response.json();
-      return responseData;
-    } else {
-      console.log("Failed register");
-      return null;
-    }
-  } catch (error) {
-    console.log("An error occurred", error);
-    return null;
-  }
+const addAddress = async (addressData: any) => {
+  return sendAuthenticatedRequest("my-account/addresses/add-address.php", addressData);
+};
+
+const editAddress = async (addressData: any) => {
+  return sendAuthenticatedRequest("my-account/addresses/edit-address.php", addressData);
+};
+
+const makeAddressDefault = async (addressId: number) => {
+  return sendAuthenticatedRequest("my-account/addresses/make-default.php", {
+    address_id: addressId,
+  });
+};
+const removeAddress = async (addressId: number) => {
+  return sendAuthenticatedRequest("my-account/addresses/remove-address.php", {
+    address_id: addressId,
+  });
+};
+const getDefaultAddress = async () => {
+  return sendAuthenticatedRequest('my-account/addresses/get-default.php', {});
+};
+
+const addWishAPI = async (product_id: number) => {
+  return sendAuthenticatedRequest('my-account/wishlist/add-to-wishlist.php', {
+    product_id: product_id
+  });
+};
+const removeWishAPI = async (product_id: number) => {
+  return sendAuthenticatedRequest('my-account/wishlist/remove-from-wishlist.php', {
+    product_id: product_id
+  });
+};
+const getWishAPI = async () => {
+  return sendAuthenticatedRequest('my-account/wishlist/get-user-wishlist.php', {});
+};
+const addBulkWishAPI = async (bulkProducts: number[]) => {
+  const payload = {
+    products: bulkProducts,
+  };
+
+  return sendAuthenticatedRequest('my-account/wishlist/bulk-add-wishlist.php', payload);
 };
 
 export {
@@ -181,6 +171,17 @@ export {
   fetchUserOrders,
   updateProfile,
   forgotPassword,
-  register,
+  userRegister,
   userLogin,
+  getAllAddresses,
+  addAddress,
+  updatePassword,
+  editAddress,
+  makeAddressDefault,
+  removeAddress,
+  getDefaultAddress,
+  addWishAPI,
+  removeWishAPI,
+  getWishAPI,
+  addBulkWishAPI,
 };

@@ -1,16 +1,31 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next';
-import { register } from '~/utils/account';
+import { userRegister } from '~/utils/account';
 import Msg from "~/components/Msg";
 import SelectInput from "~/components/SelectInput";
 import { RiCheckboxBlankCircleLine, RiRadioButtonLine } from "react-icons/ri";
 import Button from "~/components/Button";
 import Loader from "~/components/Loader";
 import { useForm } from 'react-hook-form';
+import Cookies from "js-cookie";
+import { useNavigate } from '@remix-run/react';
 
+
+type FormData = {
+    first_name: string;
+    last_name: string;
+    email: string;
+    phone: string;
+    password: string;
+    birth_day: string;
+    birth_month: string;
+    birth_year: string;
+    gender: string;
+};
 
 export default function RegisterForm() {
     const { t, i18n } = useTranslation();
+    const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors: formErrors } } = useForm();
 
     const [isSend, setIsSend] = useState(false);
@@ -25,6 +40,19 @@ export default function RegisterForm() {
         birth_month: '',
         birth_year: '',
         gender: '',
+    });
+    const [errors, setErrors] = useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: '',
+        password: '',
+        birth_day: '',
+        birth_month: '',
+        birth_year: '',
+        gender: '',
+        response: '',
+        general: ''
     });
 
     const handleChange: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement> = (e) => {
@@ -57,75 +85,6 @@ export default function RegisterForm() {
         const digitsOnly = phoneNumber.replace(/\D/g, '');
         return digitsOnly.startsWith('0') && digitsOnly.length === 11;
     };
-    const [errors, setErrors] = useState({
-        first_name: '',
-        last_name: '',
-        email: '',
-        phone: '',
-        password: '',
-        birth_day: '',
-        birth_month: '',
-        birth_year: '',
-        gender: '',
-        response: '',
-    });
-    const validateForm = () => {
-        let isValid = true;
-        setIsLoading(true);
-        const newErrors = {
-            first_name: '',
-            last_name: '',
-            email: '',
-            phone: '',
-            password: '',
-            birth_day: '',
-            birth_month: '',
-            birth_year: '',
-            gender: '',
-        };
-        if (formData.email.trim() === '') {
-            newErrors.email = i18n.language === 'ar' ? 'يجب ادخال البريد الإلكتروني' : 'Email address is required';
-            isValid = false;
-        } else if (!isValidEmail(formData.email)) {
-            newErrors.email = i18n.language === 'ar' ? 'صيغة البريد الإلكتروني غير صحيحة' : 'Invalid email address format';
-            isValid = false;
-        }
-
-        if (formData.first_name.trim() === '') {
-            newErrors.first_name = i18n.language === 'ar' ? 'يجب ادخال الاسم الأول' : 'First name is required';
-            isValid = false;
-        }
-        if (formData.password.trim() === '') {
-            newErrors.password = i18n.language === 'ar' ? 'يجب ادخال كلمه سر' : 'password is required';
-            isValid = false;
-        }
-
-        if (formData.last_name.trim() === '') {
-            newErrors.last_name = i18n.language === 'ar' ? 'يجب ادخال الاسم الأخير' : 'Last name is required';
-            isValid = false;
-        }
-
-        if (formData.phone.trim() === '') {
-            newErrors.phone = i18n.language === 'ar' ? 'يجب ادخال رقم الهاتف' : 'Phone number is required';
-            isValid = false;
-        } else if (!isValidPhoneNumber(formData.phone)) {
-            newErrors.phone = i18n.language === 'ar' ? 'صيغة رقم الهاتف غير صحيحة' : 'Invalid phone number format';
-            isValid = false;
-        }
-
-        if (formData.birth_day === 'Day' || formData.birth_month === 'Month' || formData.birth_year === 'Year') {
-            newErrors.birth_day = i18n.language === 'ar' ? 'يجب اختيار تاريخ الميلاد' : 'Birth date is required';
-            isValid = false;
-        }
-
-        if (formData.gender === '') {
-            newErrors.gender = i18n.language === 'ar' ? 'يجب اختيار الجنس' : 'Gender is required';
-            isValid = false;
-        }
-
-        setErrors(newErrors);
-        return isValid;
-    };
 
     // const handleSubmit = async (e: React.FormEvent) => {
     //     setIsLoading(true);
@@ -156,16 +115,54 @@ export default function RegisterForm() {
     //     }
     // };
 
-    const onSubmit = async (data) => {
-        console.log(data); // Access form data here
-        // Call your registration logic here
-        try {
-            const response = await register({ formData: data });
-            console.log('response', response);
-        } catch (error) {
-            console.log("An error occurred while calling the register API:", error);
-        }
+    const handleRegisterSuccess = (user_id: number, token: string) => {
+        // Store user ID in a cookie
+        Cookies.set('user_id', user_id);
+        Cookies.set('token', token);
+        Cookies.set('isNewUser', 'true', { expires: new Date(Date.now() + 10 * 60 * 1000) });
+
+        // Redirect to the dashboard or any other authorized page
+        navigate('/my-account');
     };
+
+    const onSubmit = (formData: FormData) => {
+        console.log(formData); // Access form data here
+        userRegister(formData)
+            .then((responseData: any) => {
+                // Perform the necessary actions after registration
+                if (responseData.status === 'success' && responseData.msg) {
+                    handleRegisterSuccess(responseData.user_id, responseData.token);
+                } else if (responseData.status === 'error' && responseData.msg_code) {
+                    if (responseData.msg_code === 'register_error_email') {
+                        setErrors((prevErrors) => ({
+                            ...prevErrors,
+                            general: 'Email already exists'
+                        }));
+                    } else if (responseData.msg_code === 'register_error_phone') {
+                        setErrors((prevErrors) => ({
+                            ...prevErrors,
+                            general: 'Phone number already exists'
+                        }));
+                    } else {
+                        setErrors((prevErrors) => ({
+                            ...prevErrors,
+                            general: 'An error occurred.'
+                        }));
+                    }
+                } else {
+                    setErrors((prevErrors) => ({
+                        ...prevErrors,
+                        general: 'An error occurred.'
+                    }));
+                }
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                // Handle the registration error
+                console.log('Failed to register:', error);
+            });
+    };
+
 
     return (
         <div className="relative"
@@ -176,8 +173,12 @@ export default function RegisterForm() {
                 </div>
             ) : ('')}
             <form onSubmit={handleSubmit(onSubmit)}>
+                {errors.general && (
+                    <p className="p-2 my-2 text-xs text-red-800 bg-red-100 border border-red-500 rounded">
+                        {errors.general}
+                    </p>
+                )}
                 <div className="grid grid-cols-2 gap-4 py-4 pb-5 text-left border-b-2 border-gray-200 border-solid lg:max-w-xl">
-                    {errors.response && <p className="mt-1 text-xs text-red-500">{errors.response}</p>}
                     <div>
                         <label htmlFor="" className="block mb-1 text-sm text-gray-400 capitalize"> {t('checkout.first_name')} </label>
                         <div className="mt-1">
@@ -250,10 +251,10 @@ export default function RegisterForm() {
                                 type="password"
                                 id="password"
                                 {...register("password", {
-                                    required: t("password_required"),
+                                    required: t("fields.password_required"),
                                     minLength: {
                                         value: 5,
-                                        message: t("password_length")
+                                        message: t("fields.password_length")
                                     },
                                     // pattern: {
                                     //   value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]*$/,
@@ -273,23 +274,38 @@ export default function RegisterForm() {
                         <div className="flex mt-1 space-x-3">
                             <div className='w-1/3'>
                                 <SelectInput
-                                    value={formData.birth_day}
-                                    options={['Day', ...Array.from({ length: 31 }, (_, index) => (index + 1).toString().padStart(2, '0'))]}
-                                    onChange={(value) => handleChange({ target: { name: 'birth_day', value } })}
+                                    options={[
+                                      { label: 'Day', value: '' }, // Add an empty option as the default
+                                      ...Array.from({ length: 31 }, (_, index) => ({
+                                        label: (index + 1).toString().padStart(2, '0'),
+                                        value: (index + 1).toString().padStart(2, '0'),
+                                      })),
+                                    ]}
+                                    register={register('birth_day')}
                                 />
                             </div>
                             <div className='w-1/3'>
                                 <SelectInput
-                                    value={formData.birth_month}
-                                    options={['Month', ...Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0'))]}
-                                    onChange={(value) => handleChange({ target: { name: 'birth_month', value } })}
+                                    options={[
+                                        { label: 'Month', value: '' },
+                                        ...Array.from({ length: 12 }, (_, i) => ({
+                                            label: String(i + 1).padStart(2, '0'),
+                                            value: String(i + 1).padStart(2, '0'),
+                                        })),
+                                    ]}
+                                    register={register('birth_month')}
                                 />
                             </div>
                             <div className='w-1/3'>
                                 <SelectInput
-                                    value={formData.birth_year}
-                                    options={['Year', ...Array.from({ length: 74 }, (_, i) => String(2023 - i))]}
-                                    onChange={(value) => handleChange({ target: { name: 'birth_year', value } })}
+                                    options={[
+                                      { label: 'Year', value: '' }, // Add an empty option as the default
+                                      ...Array.from({ length: 74 }, (_, i) => ({
+                                        label: String(2023 - i),
+                                        value: String(2023 - i),
+                                      })),
+                                    ]}
+                                    register={register('birth_year')}
                                 />
                             </div>
                             {errors.birth_day && <div className="error-message">{errors.birth_day}</div>}

@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { Site_Title } from "~/config";
-import { FormatCurrency } from "~/utils/FormatCurrency";
+import FormatCurrency from "~/utils/FormatCurrency";
 
 
 export const meta = () => {
@@ -86,7 +86,7 @@ export default function wallet() {
       <div className="py-12 border-b-2 border-gray-200 border-solid">
         <div className="flex items-center justify-between px-4 py-6 border-2">
           <span className="text-xl tracking-wider">Wallet Balance</span>
-          <span className="ml-20 text-lg font-bold">{FormatCurrency(400)}</span>
+          <span className="ml-20 text-lg font-bold"><FormatCurrency value={(400)}/></span>
         </div>
       </div>
 

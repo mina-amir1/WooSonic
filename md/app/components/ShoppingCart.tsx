@@ -1,18 +1,20 @@
 import { Fragment, useEffect, memo } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import useShoppingCart from "~/stores/cartStore";
+import { useShoppingCart } from "~/stores/cartStore";
 import { v4 } from 'uuid';
 import MiniCartItem from './cart/MiniCartItem';
 import MiniCartUpSell from './cart/MiniCartUpSell';
 import MiniCartTools from './cart/MiniCartTools';
 import i18next from 'i18next';
-import { FormatCurrency } from '~/utils/FormatCurrency';
+import FormatCurrency from '~/utils/FormatCurrency';
 import MiniCartItemLoader from './cart/MiniCartItemLoader';
 import { Link } from '@remix-run/react';
+import { useTranslation } from 'react-i18next';
 
 
 const ShoppingCart = () => {
+  const { t } = useTranslation();
 
   const { closeCart, cartItems, removeFromCart, openCart, isOpen, totalPrice } = useShoppingCart();
   // console.log('isOpen>', isOpen);
@@ -51,7 +53,6 @@ const ShoppingCart = () => {
                 <Transition.Child
 
                   enter="transform transition ease-in-out duration-500 sm:duration-700"
-                  // enterFrom="-translate-x-full"
                   enterFrom={`${i18next.language === 'en' ? 'translate-x-full' : '-translate-x-full'}`}
                   enterTo="translate-x-0"
                   leave="transform transition ease-in-out duration-500 sm:duration-700"
@@ -63,7 +64,7 @@ const ShoppingCart = () => {
                       <div className="flex-1 px-4 py-6 overflow-y-auto sm:px-6">
                         <div className="flex items-start justify-between">
                           {cartItems.length > 0 && (
-                            <Dialog.Title className="text-lg font-medium text-gray-900">Shopping cart</Dialog.Title>
+                            <Dialog.Title className="text-lg font-medium text-gray-900">{t('common.shopping_cart')}</Dialog.Title>
                           )}
                           <div className="flex items-center ml-3 h-7">
                             <button
@@ -101,7 +102,7 @@ const ShoppingCart = () => {
                           </div>
                         ) : (
                           <div className='flex mt-auto items-center justify-center h-[90%]'>
-                            <p className="mt-0.5 text text-slate-500">Your cart is currently empty.</p>
+                            <p className="mt-0.5 text text-slate-500">{t('common.empty_cart')}</p>
                           </div>
                         )}
                         {cartItems.length > 0 && (
@@ -114,17 +115,17 @@ const ShoppingCart = () => {
                       {cartItems.length > 0 && (
                         <div className="px-4 py-4 border-t border-gray-200 top-shadow">
                           <div className="flex justify-between text-base font-medium text-gray-900">
-                            <p>Subtotal</p>
-                            <p>{FormatCurrency(totalPrice)}</p>
+                            <p>{t('common.subtotal')}</p>
+                            <p><FormatCurrency value={totalPrice}/></p>
                           </div>
-                          <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
+                          <p className="mt-0.5 text-sm text-gray-500">{t('common.shipping_subtotal')}</p>
                           <div className="mt-4">
                             <Link
                               to="/checkout"
                               onClick={closeCart}
                               className="flex items-center justify-center px-6 py-3 text-base font-medium text-white border border-transparent rounded-md shadow-sm bg-primary-600 hover:bg-primary-700"
                             >
-                              Check Out
+                              {t('common.check_out')}
                             </Link>
                           </div>
                           <div className="flex justify-center mt-4 text-sm text-center text-gray-500">
@@ -135,7 +136,7 @@ const ShoppingCart = () => {
                                 className="ml-2 font-medium text-primary-600 hover:text-primary-500"
                                 onClick={closeCart}
                               >
-                                View Cart
+                                {t('common.view_cart')}
                                 <span aria-hidden="true"> &rarr;</span>
                               </Link>
                             </p>

@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import PaymentMethod from "~/components/PaymentMethod";
 import Loader from "~/components/Loader";
-import useShoppingCart from "~/stores/cartStore";
+import { useShoppingCart } from "~/stores/cartStore";
 import ThreedsChallengeRedirectComponent from "~/components/payments/ThreedsChallengeRedirectComponent";
 import Popup from "~/components/Popup";
 

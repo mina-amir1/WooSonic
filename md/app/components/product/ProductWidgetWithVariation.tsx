@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import useShoppingCart from "~/stores/cartStore";
+import { useShoppingCart } from "~/stores/cartStore";
 import FormatCurrency from "../../utils/FormatCurrency";
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { Link } from "@remix-run/react";
@@ -64,12 +64,12 @@ export function ProductWidgetWithVariation({ product }: ProductWidgetWithVariati
     const sizes = productData.attributes?.pa_size || [];
     const sizesList = Array.isArray(sizes) ? sizes : Object.values(sizes);
     let variation = productData?.variations?.find((variation: any) =>
-    variation.attributes.attribute_pa_size === selectedSize &&
-    variation.attributes.attribute_pa_color === selectedColor
+        variation.attributes.attribute_pa_size === selectedSize &&
+        variation.attributes.attribute_pa_color === selectedColor
     );
     let variationSalePrice = variation ? variation.sale_price : null;
-    
-    
+
+
     // console.log('productData', productData)
     // console.log('variationSalePrice', variationSalePrice)
     // console.log('variation', variation?variation:'no')

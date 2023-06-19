@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import CheckIcon from "./icons/CheckIcon";
 
 interface StepProps {
@@ -8,7 +9,9 @@ interface StepProps {
     stepNumber: number;
 }
 
-function Step({ title, lineClass, check, currentStep, stepNumber }: StepProps) {
+function Step({ lineClass, check, currentStep, stepNumber }: StepProps) {
+    const { t } = useTranslation();
+    const title = t(`trackingSteps.step${stepNumber}`);
     return (
         <div className="relative flex w-1/4 pt-20">
             <div className={`absolute inset-0 flex items-center justify-${lineClass}`}>
@@ -30,22 +33,34 @@ function Step({ title, lineClass, check, currentStep, stepNumber }: StepProps) {
 }
 
 export default function TrackingSteps({ step }: { step: number }) {
+    const { t } = useTranslation();
+    let errorMessage = '';
+    switch (step) {
+        case -1:
+            errorMessage = t('order.order_cancelled');
+            break;
+        case 5:
+            errorMessage = t('order.order_refunded');
+            break;
+        case 6:
+            errorMessage = t('order.order_failed');
+            break;
+        default:
+            errorMessage = '';
+            break;
+    }
     return (
         <div className="flex">
-            {step === -1 ? (
-                <p className="text-red-400 m-auto">Your Order has been cancelled</p>
-            ) : step === 5 ? (
-                <p className="text-red-400 m-auto">Your Order has refunded</p>
-            ) : step === 6 ? (
-                <p className="text-red-400 m-auto">Your Order has failed</p>
+            {errorMessage ? (
+                <p className="text-red-400 m-auto">{errorMessage}</p>
             ) : step === 7 ? (
                 ''
             ) : (
                 <>
-                    <Step title="Order Placed" lineClass="end" check={step >= 1} currentStep={step} stepNumber={1} />
-                    <Step title="Order Preparing" lineClass="center" check={step >= 2} currentStep={step} stepNumber={2} />
-                    <Step title="Order Fulfilled" lineClass="center" check={step > 2} currentStep={step} stepNumber={3} />
-                    <Step title="Order Delivered" lineClass="start" check={step > 3} currentStep={step} stepNumber={4} />
+                    <Step title={t('trackingSteps.step1')} lineClass="end" check={step >= 1} currentStep={step} stepNumber={1} />
+                    <Step title={t('trackingSteps.step2')} lineClass="center" check={step >= 2} currentStep={step} stepNumber={2} />
+                    <Step title={t('trackingSteps.step3')} lineClass="center" check={step > 2} currentStep={step} stepNumber={3} />
+                    <Step title={t('trackingSteps.step4')} lineClass="start" check={step > 3} currentStep={step} stepNumber={4} />
                 </>
             )}
         </div>

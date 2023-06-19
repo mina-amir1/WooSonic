@@ -1,7 +1,9 @@
+import { useTranslation } from "react-i18next";
 
-export default function ReferralBox({url}:any) {
+export default function ReferralBox({ url }: any) {
+    const { t } = useTranslation();
     return (
-        <div className="flex items-center p-3 mt-3 bg-purple-500 border">
+        <div className="flex items-center p-3 mt-3 bg-gray-100 border">
             <svg width="24" height="23" viewBox="0 0 24 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M16.1133 7.70333C16.1432 7.41883 16.0085 7.20921 15.7689 7.1044C15.3796 6.90974 15.0651 7.1044 14.7956 7.38889C12.5197 9.6798 10.2288 11.9557 7.95284 14.2466C7.62343 14.5761 7.36889 14.9504 7.75819 15.3696C8.19242 15.8338 8.58172 15.5643 8.94108 15.2049C11.202 12.944 13.463 10.683 15.724 8.42204C15.9036 8.19744 16.1133 8.00279 16.1133 7.70333Z" fill="black" />
                 <path d="M9.0159 10.6083C10.1539 10.6832 11.0972 9.8297 11.1571 8.69173C11.217 7.56874 10.3335 6.61045 9.22553 6.55056C8.16243 6.49066 7.14424 7.43398 7.09932 8.542C7.0544 9.59013 7.92285 10.5334 9.0159 10.6083ZM9.09077 7.9281C9.52499 7.91312 9.79451 8.12275 9.80949 8.57195C9.82446 9.00617 9.56991 9.23077 9.16563 9.27569C8.71644 9.24574 8.47686 9.00617 8.47686 8.57195C8.47686 8.18264 8.70146 7.94307 9.09077 7.9281Z" fill="black" />
@@ -13,7 +15,7 @@ export default function ReferralBox({url}:any) {
                 className="inline-flex justify-center px-4 py-2 ml-auto text-sm font-semibold text-white rounded-lg bg-slate-900 hover:bg-slate-700"
                 onClick={() => navigator.clipboard.writeText(url)}
             >
-                Copy Link
+                {t("common.copy_link")}
             </button>
         </div>
     )

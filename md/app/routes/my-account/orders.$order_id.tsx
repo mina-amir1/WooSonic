@@ -4,10 +4,12 @@ import { Fragment, useEffect, useState } from "react";
 import Button from "~/components/Button";
 import { Dialog, Transition } from "@headlessui/react";
 import TrackingSteps from "~/components/TrackingSteps";
-import { FormatCurrency } from "~/utils/FormatCurrency";
+import FormatCurrency from "~/utils/FormatCurrency";
 import Status from "~/components/Status";
 import Loader from "~/components/Loader";
 import { Site_Title } from "~/config";
+import { useTranslation } from "react-i18next";
+import Popup from "~/components/Popup";
 
 
 type OrderStatus = "processing" | "fulfilled" | "delivered" | "pending" | "on-hold" | "completed" | "cancelled" | "refunded" | "failed" | "checkout-draft";
@@ -49,6 +51,7 @@ export const loader = async ({ params }: any) => {
 };
 
 export default function Order() {
+    const { t, i18n } = useTranslation();
     const { order_id } = useParams();
     const [orderData, setOrderData] = useState<any>({});
     const [isLoading, setIsLoading] = useState(true);
@@ -58,8 +61,6 @@ export default function Order() {
                 const orderDetails = await getOrderInfo(parseInt(order_id));
                 // Update the orderDetails state with the fetched data
                 setOrderData(orderDetails);
-                // and set the loading state to false
-                // This will cause a re-render of the component with the fetched data
                 setIsLoading(false);
             } catch (error) {
                 // Handle any errors that occur during the data fetching process
@@ -114,9 +115,7 @@ export default function Order() {
         </div>;
     }
     if (!orderData) {
-        console.log('orderData', orderData)
-        // Handle the case when orderData is undefined
-        return <div>Error: Order details not found</div>;
+        return <div>{t('order.order_error')}</div>;
     }
     const { billing, order } = orderData;
     // Destructure billing properties
@@ -126,46 +125,46 @@ export default function Order() {
     const { status, items, subtotal, total, discount, payment_method, fees, shipping_fees } = order;
 
     const statusToStepMap: Record<OrderStatus, { step: number; message: string }> = {
-        pending: { step: 1, message: "Your order is pending." },
-        processing: { step: 1, message: "Your order is being processed." },
-        fulfilled: { step: 2, message: "Your order has been fulfilled successfully." },
-        delivered: { step: 3, message: "Your order has been delivered." },
-        "on-hold": { step: 1, message: "Your order is on hold." },
-        completed: { step: 4, message: "Your order has been completed." },
-        cancelled: { step: -1, message: "Your order has been cancelled." },
-        refunded: { step: 5, message: "Your order has been refunded." },
-        failed: { step: 6, message: "Your order has been failed." },
-        "checkout-draft": { step: 7, message: "Your order has been draft." },
+        pending: { step: 1, message: t('order.pending') },
+        processing: { step: 1, message: t('order.processing') },
+        fulfilled: { step: 2, message: t('order.fulfilled') },
+        delivered: { step: 3, message: t('order.delivered') },
+        'on-hold': { step: 1, message: t('order.onHold') },
+        completed: { step: 4, message: t('order.completed') },
+        cancelled: { step: -1, message: t('order.cancelled') },
+        refunded: { step: 5, message: t('order.refunded') },
+        failed: { step: 6, message: t('order.failed') },
+        'checkout-draft': { step: 7, message: t('order.checkoutDraft') },
     };
     const { step, message } = statusToStepMap[status as OrderStatus] || { step: 0, message: "" };
     return (
         <div>
-            <h1>Order Details: {order_id}</h1>
+            <h1>{t('order.order_details')}: {order_id}</h1>
             <div>
                 <div className="flex flex-col py-5 pb-5 border-b-2 border-gray-200 border-solid">
-                    <h1 className="text-3xl">ORDER #{order_id}</h1>
+                    <h1 className="text-3xl uppercase">{t('order.order')} #{order_id}</h1>
                     <h3 className="mt-5 text-base font-semibold tracking-wide text-gray-900">{message}</h3>
                 </div>
                 <div className="py-5">
 
                     <div className="space-y-4">
                         <div className="flex items-center">
-                            <span className="text-sm text-[#929292] mr-2">Status:</span>
+                            <span className="text-sm text-[#929292] mr-2">{t('common.status')}:</span>
                             <Status
                                 name={status}
                             />
                         </div>
                         <div className="flex items-center">
-                            <span className="text-sm text-[#929292] mr-2">Date:</span>
+                            <span className="text-sm text-[#929292] mr-2">{t('common.date')}:</span>
                             <strong className="text-[#777777] font-bold">{created_at}</strong>
                         </div>
                         <div className="flex items-center">
-                            <span className="text-sm text-[#929292] mr-2">Items:</span>
+                            <span className="text-sm text-[#929292] mr-2">{t('common.items')}:</span>
                             <strong className="text-[#777777] font-bold">{items.length}</strong>
                         </div>
                         <div className="flex items-center">
-                            <span className="text-sm text-[#929292] mr-2">Points Earned:</span>
-                            <strong className="text-[#777777] font-bold">2000 Point (100 EGP)</strong>
+                            <span className="text-sm text-[#929292] mr-2">{t('common.points_earned')}:</span>
+                            <strong className="text-[#777777] font-bold">2000 {t('common.point')} (<FormatCurrency value={(100)}/>)</strong>
                         </div>
                     </div>
 
@@ -198,20 +197,20 @@ export default function Order() {
                                         )}
                                     </div>
                                     <div className="flex flex-col items-start justify-end flex-1 mt-6 space-y-1 sm:space-y-2">
-                                        <dl className="flex space-x-4 text-sm divide-x divide-gray-200 sm:space-x-6">
+                                        <dl className="flex space-x-2 text-sm divide-x divide-gray-200 sm:space-x-4">
                                             <div className="flex">
-                                                <dt className="font-medium text-gray-900">Quantity</dt>
+                                                <dt className="font-medium text-gray-900">{t('order.qty')}</dt>
                                                 <dd className="ml-2 text-gray-700">{product.quantity}</dd>
                                             </div>
-                                            <div className="flex">
-                                                <dt className="font-medium text-gray-900">Price</dt>
-                                                <dd className="ml-2 text-gray-700">{FormatCurrency(product.subtotal)}</dd>
+                                            <div className="flex pl-2">
+                                                <dt className="font-medium text-gray-900">{t('common.price')}</dt>
+                                                <dd className="ml-2 text-gray-700"><FormatCurrency value={(product.subtotal)}/></dd>
                                             </div>
                                         </dl>
                                         <dl className="flex space-x-4 text-base divide-x divide-gray-200 sm:space-x-6">
                                             <div className="flex">
-                                                <dt className="font-medium text-gray-900">Total</dt>
-                                                <dd className="ml-2 text-gray-700">{FormatCurrency(product.total)}</dd>
+                                                <dt className="font-medium text-gray-900">{t('common.total')}</dt>
+                                                <dd className="ml-2 text-gray-700"><FormatCurrency value={(product.total)}/></dd>
                                             </div>
                                         </dl>
                                     </div>
@@ -222,7 +221,7 @@ export default function Order() {
 
                     {/* Info */}
                     <div className="py-5">
-                        <h4 className="text-xl font-medium text-gray-900">Shipping Info.</h4>
+                        <h4 className="text-xl font-medium text-gray-900">{t('checkout.shipping_information')}</h4>
                         <dl className="py-5 text-sm">
                             <dd className="mt-2 text-gray-700">
                                 <div className="block mb-2">
@@ -230,15 +229,15 @@ export default function Order() {
                                 </div>
                                 <address className="space-x-4 not-italic">
                                     <div className="inline-block">
-                                        <label className="text-[#6C757D] text-sm">Street & Building No.</label>
+                                        <label className="text-[#6C757D] text-sm">{t('checkout.street_name')}</label>
                                         <span className="block text-sm font-bold">{address1}</span>
                                     </div>
                                     <div className="inline-block mr-5">
-                                        <label className="text-[#6C757D] text-sm">Floor</label>
+                                        <label className="text-[#6C757D] text-sm">{t('checkout.floor')}</label>
                                         <span className="block text-sm font-bold">4</span>
                                     </div>
                                     <div className="inline-block">
-                                        <label className="text-[#6C757D] text-sm">Apartment</label>
+                                        <label className="text-[#6C757D] text-sm">{t('checkout.apartment')}</label>
                                         <span className="block text-sm font-bold">46</span>
                                     </div>
                                 </address>
@@ -246,7 +245,7 @@ export default function Order() {
                         </dl>
                     </div>
                     <div className="py-5 border-t border-gray-200">
-                        <h4 className="text-xl font-medium text-gray-900">Payment Method</h4>
+                        <h4 className="text-xl font-medium text-gray-900">{t('checkout.payment_method')}</h4>
                         <dd className="mt-2 text-gray-700">
                             <p>{payment_method}</p>
                             {payment_method === "Credit/Debit Card" &&
@@ -258,109 +257,79 @@ export default function Order() {
                         </dd>
                     </div>
 
-                    <h3 className="sr-only">Summary</h3>
+                    <h3 className="sr-only">{t('checkout.summary')}</h3>
 
                     <dl className="pt-10 space-y-6 text-sm border-t border-gray-200">
                         <div className="flex justify-between">
-                            <dt className="font-medium text-gray-900">Subtotal</dt>
-                            <dd className="text-gray-700">{FormatCurrency(subtotal)}</dd>
+                            <dt className="font-medium text-gray-900">{t('common.subtotal')}</dt>
+                            <dd className="text-gray-700"><FormatCurrency value={(subtotal)}/></dd>
                         </div>
                         {discount !== 0 && (
                             <div className="flex justify-between">
                                 <dt className="flex font-medium text-gray-900">
-                                    Discount
+                                    {t('checkout.discount')}
                                     <span className="rounded-full bg-gray-200 text-xs text-gray-600 py-0.5 px-2 ml-2">STUDENT50</span>
                                 </dt>
-                                <dd className="text-gray-700">-{FormatCurrency(discount)}</dd>
+                                <dd className="text-gray-700">-<FormatCurrency value={(discount)}/></dd>
                             </div>
                         )}
                         {shipping_fees !== null && (
                             <div className="flex justify-between">
-                                <dt className="font-medium text-gray-900">Shipping</dt>
-                                <dd className="text-gray-700">{FormatCurrency(shipping_fees)}</dd>
+                                <dt className="font-medium text-gray-900">{t('checkout.shipping')}</dt>
+                                <dd className="text-gray-700"><FormatCurrency value={(shipping_fees)}/></dd>
                             </div>
                         )}
                         <div className="flex justify-between">
-                            <dt className="text-lg font-medium text-gray-900 uppercase">Total</dt>
-                            <dd className="text-lg font-bold text-gray-900">{FormatCurrency(total)}</dd>
+                            <dt className="text-lg font-medium text-gray-900 uppercase">{t('common.total')}</dt>
+                            <dd className="text-lg font-bold text-gray-900"><FormatCurrency value={(total)}/></dd>
                         </div>
                     </dl>
 
                     <div className="pt-5 mt-5 space-x-2 border-t border-gray-200">
                         <Button
-                            name={'Buy again'}
+                            name={t('order.buy_again')}
                             style="solid"
                         />
                         <Button
-                            name={'Return Product'}
+                            name={t('order.return_product')}
                             style="border"
                             onClick={openSelectReturn}
                         />
                         <Button
-                            name={'Cancel Order'}
+                            name={t('order.cancel')}
                             style="border"
                             onClick={openModalCancel}
                         />
                     </div>
                 </div>
-                <Transition appear show={isOpenCancel} as={Fragment}>
-                    <Dialog as="div" className="relative z-30" onClose={closeModalCancel}>
-                        <Transition.Child
-                            as={Fragment}
-                            enter="ease-out duration-300"
-                            enterFrom="opacity-0"
-                            enterTo="opacity-100"
-                            leave="ease-in duration-200"
-                            leaveFrom="opacity-100"
-                            leaveTo="opacity-0"
-                        >
-                            <div className="fixed inset-0 bg-black bg-opacity-25" />
-                        </Transition.Child>
-
-                        <div className="fixed inset-0 overflow-y-auto">
-                            <div className="flex items-center justify-center min-h-full p-4 text-center">
-                                <Transition.Child
-                                    as={Fragment}
-                                    enter="ease-out duration-300"
-                                    enterFrom="opacity-0 scale-95"
-                                    enterTo="opacity-100 scale-100"
-                                    leave="ease-in duration-200"
-                                    leaveFrom="opacity-100 scale-100"
-                                    leaveTo="opacity-0 scale-95"
-                                >
-                                    <Dialog.Panel className="relative w-full max-w-lg p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                                        <button onClick={closeModalCancel} type="button" className="absolute p-2 -m-2 text-gray-400 outline-none hover:text-gray-500 top-2 right-2">
-                                            <span className="sr-only">Close panel</span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
-                                        </button>
-                                        <h3 className="mb-5 text-xl font-medium leading-6 text-gray-900">Cancel Order #354896</h3>
-                                        <div>
-                                            <label htmlFor="way" className="block text-sm font-medium text-gray-700">Choose why you want to cancel your order.</label>
-                                            <select id="way" name="way" className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
-                                                <option>Changed My Mind</option>
-                                                <option>Other Reason</option>
-                                            </select>
-                                        </div>
-                                        <div className="mt-5">
-                                            <label htmlFor="reason" className="block text-sm font-medium text-gray-700">Write briefed cancelation reason (Optional)</label>
-                                            <textarea id="reason" name="reason" rows={3} className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm sm:text-sm" placeholder=""></textarea>
-                                        </div>
-                                        <div className="mt-5">
-                                            <Button
-                                                name="Cancel Order"
-                                                width="full"
-                                                style="solid-red"
-                                                onClick={() => {
-                                                    closeModalCancel();
-                                                    openConfirmCancel();
-                                                }}
-                                            />
-                                        </div>
-                                    </Dialog.Panel>
-                                </Transition.Child>
-                            </div>
+                {isOpenCancel ? (
+                    <Popup isOpen={true} close={closeModalCancel}>
+                        <h3 className="mb-5 text-xl font-medium leading-6 text-gray-900">Cancel Order #354896</h3>
+                        <div>
+                            <label htmlFor="way" className="block text-sm font-medium text-gray-700">Choose why you want to cancel your order.</label>
+                            <select id="way" name="way" className="block w-full px-3 py-2 mt-1 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm">
+                                <option>Changed My Mind</option>
+                                <option>Other Reason</option>
+                            </select>
                         </div>
-                    </Dialog>
-                </Transition>
+                        <div className="mt-5">
+                            <label htmlFor="reason" className="block text-sm font-medium text-gray-700">Write briefed cancelation reason (Optional)</label>
+                            <textarea id="reason" name="reason" rows={3} className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm sm:text-sm" placeholder=""></textarea>
+                        </div>
+                        <div className="mt-5">
+                            <Button
+                                name="Cancel Order"
+                                width="full"
+                                style="solid-red"
+                                onClick={() => {
+                                    closeModalCancel();
+                                    openConfirmCancel();
+                                }}
+                            />
+                        </div>
+                    </Popup>
+                ) : ('')}
+                
 
                 <Transition appear show={isCancel} as={Fragment}>
                     <Dialog as="div" className="relative z-30" onClose={closeConfirmCancel}>
@@ -477,13 +446,13 @@ export default function Order() {
                                                                 </div>
                                                                 <div className="flex pl-4 sm:pl-6">
                                                                     <dt className="font-medium text-gray-900">Price</dt>
-                                                                    <dd className="ml-2 text-gray-700">{FormatCurrency(32)}</dd>
+                                                                    <dd className="ml-2 text-gray-700"><FormatCurrency value={(32)}/></dd>
                                                                 </div>
                                                             </dl>
                                                             <dl className="flex space-x-4 text-sm divide-x divide-gray-200 sm:space-x-6">
                                                                 <div className="flex">
                                                                     <dt className="font-medium text-gray-900">Total</dt>
-                                                                    <dd className="ml-2 text-gray-700">{FormatCurrency(32 * 1)}</dd>
+                                                                    <dd className="ml-2 text-gray-700"><FormatCurrency value={(32 * 1)}/></dd>
                                                                 </div>
                                                             </dl>
                                                         </div>
@@ -520,13 +489,13 @@ export default function Order() {
                                                                 </div>
                                                                 <div className="flex pl-4 sm:pl-6">
                                                                     <dt className="font-medium text-gray-900">Price</dt>
-                                                                    <dd className="ml-2 text-gray-700">{FormatCurrency(40)}</dd>
+                                                                    <dd className="ml-2 text-gray-700"><FormatCurrency value={(40)}/></dd>
                                                                 </div>
                                                             </dl>
                                                             <dl className="flex space-x-4 text-sm divide-x divide-gray-200 sm:space-x-6">
                                                                 <div className="flex">
                                                                     <dt className="font-medium text-gray-900">Total</dt>
-                                                                    <dd className="ml-2 text-gray-700">{FormatCurrency(40 * 3)}</dd>
+                                                                    <dd className="ml-2 text-gray-700"><FormatCurrency value={(40 * 3)}/></dd>
                                                                 </div>
                                                             </dl>
                                                         </div>
@@ -563,13 +532,13 @@ export default function Order() {
                                                                 </div>
                                                                 <div className="flex pl-4 sm:pl-6">
                                                                     <dt className="font-medium text-gray-900">Price</dt>
-                                                                    <dd className="ml-2 text-gray-700">{FormatCurrency(32)}</dd>
+                                                                    <dd className="ml-2 text-gray-700"><FormatCurrency value={(32)}/></dd>
                                                                 </div>
                                                             </dl>
                                                             <dl className="flex space-x-4 text-sm divide-x divide-gray-200 sm:space-x-6">
                                                                 <div className="flex">
                                                                     <dt className="font-medium text-gray-900">Total</dt>
-                                                                    <dd className="ml-2 text-gray-700">{FormatCurrency(32 * 2)}</dd>
+                                                                    <dd className="ml-2 text-gray-700"><FormatCurrency value={(32 * 2)}/></dd>
                                                                 </div>
                                                             </dl>
                                                         </div>

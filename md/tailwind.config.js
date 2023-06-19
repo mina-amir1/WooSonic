@@ -80,13 +80,13 @@ module.exports = {
         900: "#14532d",
       },
       yellow: {
-        100: "#fef9c3",
+        100: "#FBF6E9",
         200: "#fef08a",
         300: "#fde047",
         400: "#facc15",
         500: "#eab308",
         600: "#ca8a04",
-        700: "#a16207",
+        700: "#FFE0BE",
         800: "#854d0e",
         900: "#713f12",
       },
@@ -115,6 +115,10 @@ module.exports = {
     extend: {
       fontDisplay: {
         sans: "swap", // Use 'swap', 'block', 'fallback', or 'optional'
+      },
+      fontFamily: {
+        'sans-en': '"Roboto"',
+        'sans-ar': '"Baloo Bhaijaan 2"',
       },
     },
     // maxWidth: {

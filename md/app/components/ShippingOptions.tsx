@@ -42,14 +42,12 @@ export default function ShippingOptions({ formData, handleChange, errors }: any)
 
   const handleNeighborhoodChange = (event: any) => {
     const selectedNeighborhoodId = event.target.value;
-    console.log('handleNeighborhoodChange')
     setSelectedGovId(selectedNeighborhoodId);
     handleChange(event);
   };
 
   const handleShippingMethodChange = (event: any) => {
     const selectedShippingMethod = event.target.value;
-    // console.log('handleShippingMethodChange')
     setShippingMethod(selectedShippingMethod);
     handleChange(event);
   };
@@ -285,7 +283,7 @@ export default function ShippingOptions({ formData, handleChange, errors }: any)
                 {errors.building_no && <p className="mt-1 text-xs text-red-500">{errors.building_no}</p>}
               </div>
               <div>
-                <label htmlFor="" className="block text-sm font-medium leading-6 text-gray-900 capitalize"> {t('checkout.floor')} </label>
+                <label htmlFor="" className="block text-sm font-medium leading-6 text-gray-900 capitalize">{t('checkout.floor')}</label>
                 <input
                   type="text"
                   name="floor_no"
@@ -297,7 +295,7 @@ export default function ShippingOptions({ formData, handleChange, errors }: any)
                 {errors.building_no && <p className="mt-1 text-xs text-red-500">{errors.floor_no}</p>}
               </div>
               <div>
-                <label htmlFor="" className="block text-sm font-medium leading-6 text-gray-900 capitalize"> {t('checkout.apartment')} </label>
+                <label htmlFor="" className="block text-sm font-medium leading-6 text-gray-900 capitalize">{t('checkout.apartment')}</label>
                 <input
                   type="text"
                   name="apartment_no"

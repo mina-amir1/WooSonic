@@ -1,6 +1,6 @@
 import { PlusIcon } from "@heroicons/react/24/outline";
 import React, { useState } from "react";
-import { FormatCurrency } from "~/utils/FormatCurrency";
+import FormatCurrency from "~/utils/FormatCurrency";
 import { v4 } from 'uuid';
 export default function Frequently() {
     const [selectedProducts, setSelectedProducts] = useState([
@@ -44,9 +44,9 @@ export default function Frequently() {
                 </div>
                 <div className="flex flex-col">
                     <div className="mb-4 font-medium">
-                        Total price: {FormatCurrency(totalSelectedPrice)}{" "}
+                        Total price: <FormatCurrency value={totalSelectedPrice}/>{" "}
                         <del className="text-base text-red-400 line-through align-middle">
-                            {FormatCurrency(totalOriginalPrice)}
+                            <FormatCurrency value={totalOriginalPrice}/>
                         </del>
                     </div>
                     {areItemsSelected ? (
@@ -74,7 +74,7 @@ export default function Frequently() {
                             <label htmlFor={`product-${index}`} className="pl-2">
                                 {product.title}{" "}
                                 <span className="font-bold text-red-400 price">
-                                    {FormatCurrency(product.price)}
+                                    <FormatCurrency value={product.price}/>
                                 </span>
                             </label>
                         </li>
