@@ -107,7 +107,7 @@ echo "$password" | sudo -S sed -i '24s|.*|  server_name backend.'"$new_domain"';
 echo -e "\033[1;32mNginx configured Successfully. \xE2\x9C\x94\033[0m"
 
 # Check if the containers are already running
-if docker ps --filter "name=<pwa-remix>" --format "{{.Names}}" | grep -q "<container_name>"; then
+if docker ps --filter "name=pwa-remix" --format "{{.Names}}" | grep -q "<container_name>"; then
     echo -e "\033[1;32mContainers are already running. \xE2\x9C\x94\033[0m"
 else
 # Bring up containers using Docker Compose
