@@ -123,6 +123,7 @@ else
 fi
 
 #Rebuild the remix project
+echo -e "Building Remix... \u23F3"
 output=$(docker exec -it pwa-remix sh -c "npm run build" 2>&1)
 exit_code=$?
 # Check if any error occurred
