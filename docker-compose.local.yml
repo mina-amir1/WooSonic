@@ -11,18 +11,32 @@ services:
       - ./md/app:/app/app
       - ./md/public:/app/public
 
-  db:
-    image: arm64v8/mysql
-    container_name: pwa-db
-    volumes:
-      - db_data:/var/lib/mysql
-      - ./wp/local.sql:/docker-entrypoint-initdb.d/local.sql
-    restart: always
-    environment:
-      MYSQL_DATABASE: pwa
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: example
-      MYSQL_ROOT_PASSWORD: example
+  #  for_Macbook Intel
+    db:
+      image: mysql:5.7
+      container_name: pwa-db
+      volumes:
+        - db_data:/var/lib/mysql
+        - ./wp/local.sql:/docker-entrypoint-initdb.d/local.sql
+      restart: always
+      environment:
+        MYSQL_DATABASE: pwa
+        MYSQL_USER: wordpress
+        MYSQL_PASSWORD: example
+        MYSQL_ROOT_PASSWORD: example
+  # # for_Macbook M1
+#  db:
+#    image: arm64v8/mysql
+#    container_name: pwa-db
+#    volumes:
+#      - db_data:/var/lib/mysql
+#      - ./wp/local.sql:/docker-entrypoint-initdb.d/local.sql
+#    restart: always
+#    environment:
+#      MYSQL_DATABASE: pwa
+#      MYSQL_USER: wordpress
+#      MYSQL_PASSWORD: example
+#      MYSQL_ROOT_PASSWORD: example
 
   wordpress:
     container_name: pwa-wordpress
