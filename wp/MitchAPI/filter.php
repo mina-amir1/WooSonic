@@ -2,6 +2,10 @@
 require_once '../wp-load.php';
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: ' . PWA_Base_Link);
+// Allow sending cookies in CORS requests
+header('Access-Control-Allow-Credentials: true');
+// Other headers
+header('Content-Type: application/json; charset=utf-8');
 $request = file_get_contents("php://input");
 $request_data = json_decode($request, true, 512, JSON_THROW_ON_ERROR);
 global  $wpdb;

@@ -78,6 +78,7 @@ prompt_for_password() {
     echo
 }
 #prompt_for_password
+chown -R www-data:www-data wp
 # Check if Docker is already installed
 if ! check_docker_installed; then
     # Install Docker
