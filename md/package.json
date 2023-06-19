@@ -2,7 +2,7 @@
   "private": true,
   "sideEffects": true,
   "scripts": {
-    "build": "npm run build:css && remix build && npm run minify:js",
+    "build": "npm run build:css && remix build",
     "build:css": "tailwindcss -o ./app/tailwind.[hash].css && rtlcss ./app/tailwind.[hash].css ./app/tailwind.rtl.[hash].css",
     "dev": "concurrently \"npm run dev:css\" \"npm run minify:js:watch\" \"remix dev\" \"npm run json-server\"",
     "dev:css": "tailwindcss -o ./app/tailwind.[hash].css && rtlcss ./app/tailwind.[hash].css ./app/tailwind.rtl.[hash].css",
