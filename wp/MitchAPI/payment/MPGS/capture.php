@@ -8,7 +8,8 @@ header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: ' . PWA_Base_Link);
 $request = file_get_contents("php://input") ?? '';
 $request_data = json_decode($request, true);
-$redirect_url = "https://cloudhosta.com:68/MitchAPI/payment/MPGS/capture.php";
+$redirect_url = home_url()."/MitchAPI/payment/MPGS/capture.php";
+global $wpdb;
 if (isset($request_data['payment']['sessionID'], $request_data['payment']['orderData'])) {
     $orderData = $request_data['payment']['orderData'];
     $sessionID = $request_data['payment']['sessionID'];
@@ -36,6 +37,9 @@ if (isset($request_data['payment']['sessionID'], $request_data['payment']['order
             $order->add_order_note('Payment Failed with OBJ '.$capture['obj'],false,0);
             $order->set_status('wc-failed');
         }
+        $paymentCode = $capture['paymentCode']??'';
+        $wpdb->query("Insert into pwa_mpgs_status (sessionID,orderID,status) value ('$sessionID','$orderID','$paymentCode')");
+        $wpdb->query("DELETE FROM pwa_mpgs_status WHERE createdAt <= NOW() - INTERVAL 24 HOUR");
         $order->save();
         echo json_encode($capture);
     }else {
