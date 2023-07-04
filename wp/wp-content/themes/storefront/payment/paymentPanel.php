@@ -5,7 +5,7 @@ function payment_custom_menu()
     add_submenu_page(
         'pwa_settings', // parent slug
         'Payment', // page title
-        'Payment', // menu title
+        'Payment Configuration', // menu title
         'manage_options', // capability
         'pwa_payment', // menu slug
         'payment' // callback function for edit page
@@ -28,7 +28,7 @@ function payment()
         </h2>
 
         <?php
-        $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'general';
+        $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'mpgs';
 
         // Render the appropriate tab content based on the active tab
         switch ($active_tab) {
@@ -38,19 +38,21 @@ function payment()
             case 'cybersource':
                 ?>
                 <h1>appearance</h1>
-                <? break;
+                <?php break;
             case 'paymob':
                 ?>
                 <h1>advanced</h1>
-                <? break;
+                <?php break;
             default:
                 ?>
                 <h1>general</h1>
-            <? }
+            <?php
+        }
         ?>
     </div>
     <?php
 }
+
 
 function render_mpgs()
 {

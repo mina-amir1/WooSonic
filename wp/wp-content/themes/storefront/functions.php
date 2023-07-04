@@ -126,7 +126,7 @@ function exclude_branches()
 
 add_action('init', 'exclude_branches', 0);
 
-
+require_once 'pwaSettings/mainPanel.php';
 require_once 'shipping/shipping.php';
 
 require_once 'translations/metabox.php';
@@ -135,10 +135,9 @@ require_once 'payment/ccMethod.php';
 require_once 'payment/billingData.php';
 require_once 'shipping/shippingData.php';
 require_once 'payment/paymentPanel.php';
-require_once 'smtp/smtpPanel.php';
-require_once 'smtp/smtp.php';
-require_once 'posttagy/posttagyPanel.php';
-require_once 'posttagy/postagy.php';
+require_once 'pwaEmails/emailsPanel.php';
+require_once 'pwaEmails/smtp.php';
+require_once 'customPost/recipes.php';
 
 
 function pwa_custom_order_statuses()

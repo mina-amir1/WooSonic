@@ -9,6 +9,14 @@ function add_translation_box() {
         'normal',
         'high'
     );
+    add_meta_box(
+        'translation_post_box',
+        __('PWA Translations', 'your-text-domain'),
+        'render_translation_box',
+        'recipe',
+        'normal',
+        'high'
+    );
 }
 add_action('add_meta_boxes', 'add_translation_box');
 
@@ -55,3 +63,12 @@ function save_translation_fields_value($post_id) {
     }
 }
 add_action('save_post_product', 'save_translation_fields_value');
+
+// Save translations fields for recipes
+function my_custom_recipe_save_action( $post_id ) {
+    // Check if the post is of the "recipe" post type
+    if ( 'recipe' === get_post_type( $post_id ) ) {
+       save_translation_fields_value($post_id);
+    }
+}
+add_action( 'save_post', 'my_custom_recipe_save_action' );
