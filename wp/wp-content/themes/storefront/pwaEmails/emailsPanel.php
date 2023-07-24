@@ -39,8 +39,8 @@ function render_posttagy()
                                              WHEN setting_name = 'posttagy_cancelled' THEN '$cancelled'
                                              WHEN setting_name = 'posttagy_refunded' THEN '$refunded'
                                              WHEN setting_name = 'posttagy_failed' THEN '$failed'
-
-                                         END");
+                                         END
+                                         WHERE setting_name IN ('posttagy_enabled', 'posttagy_api_key', 'posttagy_processing', 'posttagy_ready_to_ship','posttagy_shipped','posttagy_completed','posttagy_cancelled','posttagy_refunded','posttagy_failed');");
         if ($query) {
             echo '<div class="notice notice-success is-dismissible" style="padding: 10px"><span>Data Updated successfully</span></div>';
         } else {
@@ -146,7 +146,8 @@ function render_smtp()
                                              WHEN setting_name = 'smtp_SMTPAuth' THEN '$auth'
                                              WHEN setting_name = 'smtp_enabled' THEN '$enabled'
                                              WHEN setting_name = 'smtp_secure' THEN '$secure'
-                                         END");
+                                         END
+                                          WHERE setting_name IN ('smtp_username', 'smtp_password', 'smtp_host', 'smtp_port','smtp_SMTPAuth','smtp_enabled','smtp_secure');");
         if ($query) {
             echo '<div class="notice notice-success is-dismissible" style="padding: 10px"><span>Data Updated successfully</span></div>';
         } else {

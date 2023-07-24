@@ -11,6 +11,10 @@ function modify_admin_billing_fields($fields)
         'label' => __('Gov', 'text-domain'),
         'show'  => true,
     );
+    $fields['city'] = array(
+        'label' => __('City', 'text-domain'),
+        'show'  => true,
+    );
     $fields['area'] = array(
         'label' => __('Area', 'text-domain'),
         'show'  => true,

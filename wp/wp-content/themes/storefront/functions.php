@@ -80,17 +80,17 @@ function my_acf_op_init()
 
         // Register options page.
         acf_add_options_page(array(
-            'page_title' => __('MitchPWA Settings'),
-            'menu_title' => __('MitchPWA Settings'),
+            'page_title' => __('Header & Footer'),
+            'menu_title' => __('Header & Footer'),
             'menu_slug' => 'mitchpwa-general-settings',
             'capability' => 'edit_posts',
             'redirect' => false
         ));
-        acf_add_options_sub_page(array(
-            'page_title' => 'Header & Footer',
-            'menu_title' => 'Header & Footer',
-            'parent_slug' => 'mitchpwa-general-settings',
-        ));
+//        acf_add_options_sub_page(array(
+//            'page_title' => 'Header & Footer',
+//            'menu_title' => 'Header & Footer',
+//            'parent_slug' => 'mitchpwa-general-settings',
+//        ));
 
     }
 }
@@ -136,8 +136,17 @@ require_once 'payment/billingData.php';
 require_once 'shipping/shippingData.php';
 require_once 'payment/paymentPanel.php';
 require_once 'pwaEmails/emailsPanel.php';
+require_once 'pwaEmails/postagy.php';
 require_once 'pwaEmails/smtp.php';
-require_once 'customPost/recipes.php';
+require_once 'pwaContactUs/contactPanel.php';
+require_once 'customPost/faq.php';
+require_once 'customPost/branches.php';
+
+
+// Enable product reviews
+add_filter('woocommerce_product_reviews_enabled', '__return_true');
+// Enable review ratings
+add_filter('woocommerce_product_rating_enabled', '__return_true');
 
 
 function pwa_custom_order_statuses()

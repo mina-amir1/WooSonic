@@ -9,6 +9,12 @@ $response = array();
 $user_email = $request_data['user_email'];
 $user = get_user_by('email', $user_email); 
 if($user){
+    //Check if User Registered By FB 
+    if(get_user_meta($user->ID , 'registered_by' , true) == 'fb'){
+        $response = array('status' => 'error', 'msg' => "You Registered Using Social Media Login  ! "); 
+        echo json_encode($response);
+        return;
+    }
     $key = wp_generate_password(20, false);
     update_user_meta($user->ID, 'reset_password_key', $key);
     update_user_meta($user->ID, 'reset_password_time', time());

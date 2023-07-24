@@ -121,17 +121,20 @@ done
 read -p "Enter the new domain: " new_domain
 
 # Update the NGINX configuration file with the new domain
-sudo  sed -i '9s|.*|   server_name pwa.'"$new_domain"';|' "$nginx_conf_file"
+sudo  sed -i '9s|.*|   server_name '"$new_domain"';|' "$nginx_conf_file"
 sudo  sed -i '24s|.*|  server_name backend.'"$new_domain"';|' "$nginx_conf_file"
 echo -e "\033[1;32mNginx configured Successfully. \xE2\x9C\x94\033[0m"
+# Update the config.js for remix
+sudo sed -i '7s|.*|   export const API_ENDPOINT = "https://backend.'"$new_domain"'";|' "./md/app/config.js"
+echo -e "\033[1;32mConfig.js configured Successfully. \xE2\x9C\x94\033[0m"
 
 # Bring up containers using Docker Compose
 echo "Bringing up containers for $environment environment..."
 sudo  docker-compose -f "$compose_file" up -d
 
-sleep 2
+sleep 5
 # Update the MySQL database with the new domain
-output=$(docker exec -i pwa-db mysql -uroot -pexample -e "use pwa; update wp_options set option_value ='https://backend.$new_domain' where option_id in (1,2);" 2>&1)
+output=$(docker exec -i pwa-db mysql -uroot -p'example' -e "use pwa; update wp_options set option_value ='https://backend.$new_domain' where option_id in (1,2);" 2>&1)
 exit_code=$?
 # Check if any error occurred
 if [ $exit_code -ne 0 ]; then

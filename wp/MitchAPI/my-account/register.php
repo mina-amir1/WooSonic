@@ -47,6 +47,7 @@ if( $vaild_data){
       update_user_meta($user->ID, 'first_name', sanitize_text_field($request_data['first_name']));
       update_user_meta($user->ID, 'last_name', sanitize_text_field($request_data['last_name']));
       update_user_meta($user->ID, 'phone_number', $request_data['phone']);
+      update_user_meta($user->ID, 'registered_by', sanitize_text_field("wp"));
 
       add_user_meta($user->ID , 'birth_day' , sanitize_text_field($request_data['birth_day'] ) );
       add_user_meta($user->ID , 'birth_month' , sanitize_text_field($request_data['birth_month'] ) );

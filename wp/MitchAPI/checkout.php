@@ -53,7 +53,7 @@ if (isset($request_data['billing'],
             $WcOrder->set_payment_method_title('Cash On Delivery');
             $WcOrder->set_status('wc-processing');
             $WcOrder->save();
-            echo json_encode(["status"=>"success"]);
+            echo json_encode(["status"=>"success","order_id"=>$order_id,"code"=>"200"]);
         }elseif (strtolower($payment['method']) === "cc"){
             // make checks here if it's MPGS or cyber or paymob and require each file
             $WcOrder->set_payment_method('cc');

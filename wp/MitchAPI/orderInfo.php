@@ -2,6 +2,18 @@
 require_once '../wp-load.php';
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: ' . PWA_Base_Link);
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE');
+header('Access-Control-Allow-Headers: x-requested-with,content-type, Set-Cookie');
+header('Access-Control-Allow-Credentials: true');
+header('Access-Control-Max-Age: 86400');
+// Set cache-related headers
+header('Cache-Control: public, max-age=86400'); // Cache the response for 24 hours
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    // Handle preflight OPTIONS request
+    header('Access-Control-Allow-Credentials: true');
+    exit();
+}
 $request = file_get_contents("php://input");
 $request_data = json_decode($request, true);
 if (!isset($request_data['order_id'])) {
@@ -18,7 +30,12 @@ if (!isset($request_data['order_id'])) {
             /** @var WC_Order_Item $item */
             foreach ($items as $item_id => $item) {
                 $product = $item->get_product();
+                $product_type = "simple";
+                $product_slug = $product->get_slug();
                 if ($product->is_type('variation')) {
+                    $product_type = "variable";
+                    $parent_id = $product->get_parent_id();
+                    //$product_slug =
                     $variation_attributes = $product->get_variation_attributes();
                     $attr = [];
                     foreach ($variation_attributes as $attribute_taxonomy => $term_slug) {
@@ -32,6 +49,9 @@ if (!isset($request_data['order_id'])) {
                 }
                 $items_data[] = [
                     'name' => $item->get_name(),
+                    'thumbnail' =>  get_the_post_thumbnail_url($product->get_id()),
+                    'type' => $product_type,
+                    'slug' => $product_slug,
                     'quantity' => $item->get_quantity(),
                     'subtotal' => $order->get_item_subtotal($item),
                     'total' => $order->get_item_subtotal($item) * $item->get_quantity(),
@@ -53,8 +73,10 @@ if (!isset($request_data['order_id'])) {
                 'last_name' => $order->get_billing_last_name(),
                 'email' => $order->get_billing_email(),
                 'phone' => $order->get_billing_phone(),
-                'created_at' => $order->get_date_created()->date('Y-m-dd H:i:s'),
+                'created_at' => $order->get_date_created()->date('Y-m-d'),
                 'gov' => $order->get_meta('_billing_gov')??'',
+                'city' => $order->get_meta('_billing_city')??'',
+                'apartment_type' => $order->get_meta('_billing_apartment_type')??'',
                 'area' => $order->get_meta('_billing_area',true)??'',
                 'country' => $order->get_meta('_billing_country')??'',
                 'address1' => $order->get_billing_address_1(),
@@ -63,6 +85,7 @@ if (!isset($request_data['order_id'])) {
                 'status' => $order->get_status(),
                 'items' => $items_data,
                 'subtotal' => $order->get_subtotal(),
+                'shipping_fees' => $order->get_shipping_total(),
                 'total' => $order->get_total(),
                 'discount' => $order->get_total_discount(),
                 'payment_method' => $order->get_payment_method_title(),

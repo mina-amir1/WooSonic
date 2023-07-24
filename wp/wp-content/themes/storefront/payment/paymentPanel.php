@@ -68,7 +68,8 @@ function render_mpgs()
                                              WHEN setting_name = 'mpgs_password' THEN '$password'
                                              WHEN setting_name = 'mpgs_api_url' THEN '$url'
                                              WHEN setting_name = 'mpgs_enabled' THEN '$enabled'
-                                         END");
+                                         END
+                                         WHERE setting_name IN ('mpgs_username', 'mpgs_password', 'mpgs_api_url', 'mpgs_enabled');");
         if ($query){
             echo '<div class="notice notice-success is-dismissible" style="padding: 10px"><span>Data Updated successfully</span></div>';
         }else{

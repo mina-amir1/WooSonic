@@ -1,7 +1,7 @@
 jQuery(function ($) {
     $(document).ready(function () {
         // Edit button click event
-        $('.edit-btn').click(function (e) {
+        $(document).on('click', '.edit-btn', function (e) {
             e.preventDefault();
             var row = $(this).closest('tr');
             var gov_name = row.find('td:eq(1)').text();
@@ -40,15 +40,15 @@ jQuery(function ($) {
             row.find('td:eq(2)').text(gov_name_en);
 
             // Add Edit button
-            row.find('td:eq(3)').html('<form style="margin-right: 10px" method="post">\n' +
-                '        <input type="hidden" name="gov_id" value="' + id + '"' + '><input type="submit" name="action" class="button action edit-btn" value="Edit"></form>\n' +
+            row.find('td:eq(3)').html(
+                '        <input type="hidden" name="gov_id" value="' + id + '"' + '><input type="submit" name="action" class="button action edit-btn" value="Edit">\n' +
                 '        <form method="post">\n' +
                 '        <input type="hidden" name="gov_id" value="' + id + '"> <input type="submit" name="action" class="button action" onclick="return confirm(\'Are you sure\')" value="Delete"></form>');
         });
     });
     $(document).ready(function () {
         // Edit button click event
-        $('.edit-city-btn').click(function (e) {
+        $(document).on('click', '.edit-city-btn', function (e) {
             e.preventDefault();
             var row = $(this).closest('tr');
             var city_name = row.find('td:eq(1)').text();
@@ -95,8 +95,8 @@ jQuery(function ($) {
             row.find('td:eq(4)').text(city_name_en);
 
             // Add Edit button
-            row.find('td:eq(5)').html('<form style="margin-right: 10px" method="post">\n' +
-                '        <input type="hidden" name="city_id" value="' + id + '"' + '><input type="submit" name="action" class="button action edit-area-btn" value="Edit"></form>\n' +
+            row.find('td:eq(5)').html(
+                '        <input type="hidden" name="city_id" value="' + id + '"' + '><input type="submit" name="action" class="button action edit-city-btn" value="Edit">\n' +
                 '        <form method="post">\n' +
                 '        <input type="hidden" name="city_id" value="' + id + '"> <input type="submit" name="action" class="button action" onclick="return confirm(\'Are you sure\')" value="Delete"></form>');
         });
@@ -104,7 +104,7 @@ jQuery(function ($) {
 
     $(document).ready(function () {
         // Edit button click event
-        $('.edit-area-btn').click(function (e) {
+        $(document).on('click', '.edit-area-btn', function (e) {
             e.preventDefault();
             var row = $(this).closest('tr');
             var area_name = row.find('td:eq(1)').text();
@@ -169,7 +169,7 @@ jQuery(function ($) {
 
         var current_area;
         // Edit button click event
-        $('.edit-branch-btn').click(function (e) {
+        $(document).on('click', '.edit-branch-btn', function (e) {
             e.preventDefault();
             var row = $(this).closest('tr');
             var branch_name = row.find('td:eq(1)').text();

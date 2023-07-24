@@ -13,7 +13,31 @@ function add_translation_box() {
         'translation_post_box',
         __('PWA Translations', 'your-text-domain'),
         'render_translation_box',
+        'post',
+        'normal',
+        'high'
+    );
+    add_meta_box(
+        'translation_post_box',
+        __('PWA Translations', 'your-text-domain'),
+        'render_translation_box',
+        'page',
+        'normal',
+        'high'
+    );
+    add_meta_box(
+        'translation_post_box',
+        __('PWA Translations', 'your-text-domain'),
+        'render_translation_box',
         'recipe',
+        'normal',
+        'high'
+    );
+    add_meta_box(
+        'translation_post_box',
+        __('PWA Translations', 'your-text-domain'),
+        'render_translation_box',
+        'faq',
         'normal',
         'high'
     );
@@ -69,6 +93,18 @@ function my_custom_recipe_save_action( $post_id ) {
     // Check if the post is of the "recipe" post type
     if ( 'recipe' === get_post_type( $post_id ) ) {
        save_translation_fields_value($post_id);
+    }
+    // Check if the post is of the "blog" post type
+    if ( 'post' === get_post_type( $post_id ) ) {
+        save_translation_fields_value($post_id);
+    }
+    // Check if the post is of the "blog" post type
+    if ( 'page' === get_post_type( $post_id ) ) {
+        save_translation_fields_value($post_id);
+    }
+    // Check if the post is of the "faq" post type
+    if ( 'faq' === get_post_type( $post_id ) ) {
+        save_translation_fields_value($post_id);
     }
 }
 add_action( 'save_post', 'my_custom_recipe_save_action' );

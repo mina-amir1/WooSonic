@@ -6,9 +6,9 @@ $request = file_get_contents("php://input");
 $request_data = json_decode($request, true, 512, JSON_THROW_ON_ERROR);
 if ($request_data['product_id']) {
     $product_id = $request_data['product_id'];
-    $cross_sell_ids = get_post_meta($product_id, '_crosssell_ids', true);
-    foreach ($cross_sell_ids as $cross_sell_id) {
-        $product = wc_get_product($cross_sell_id);
+    $up_sell_ids = get_post_meta($product_id, '_upsell_ids', true);
+    foreach ($up_sell_ids as $up_sell_id) {
+        $product = wc_get_product($up_sell_id);
         $product_type = $product instanceof WC_Product_Variable ? "variable" : "simple";
         $productData = [
             'id' => $product->get_id(),

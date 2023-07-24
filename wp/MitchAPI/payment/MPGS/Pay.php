@@ -29,9 +29,9 @@ class Pay extends ThreeDS
         ]);
         if (is_array($res)){
             if (isset($res['response']['gatewayCode']) && $res['response']['gatewayCode'] === 'APPROVED'){
-                return ["status"=>"success","paymentCode"=>$res['response']['gatewayCode'],"obj"=>$res];
+                return ["status"=>"success","sessionID"=>$this->sessionID,"orderID"=>$this->orderID,"paymentCode"=>$res['response']['gatewayCode'],"obj"=>$res];
             }
-            return ["status"=>"failed","paymentCode"=>$res['response']['gatewayCode'],"orderID"=>$res['order']['id'],"obj"=>$res];
+            return ["status"=>"failed","sessionID"=>$this->sessionID,"orderID"=>$this->orderID,"paymentCode"=>$res['response']['gatewayCode'],"orderID"=>$res['order']['id'],"obj"=>$res];
         }
         return ["status"=>"error","obj"=>$res];
     }

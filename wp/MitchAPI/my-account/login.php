@@ -10,15 +10,14 @@ $request = file_get_contents("php://input");
 $request_data = $request ? json_decode($request, true):[];
 
 require_once 'global-functions.php';
-if (isset($request_data['username'],$request_data['password'],$request_data['remember'])){
+if (isset($request_data['username'],$request_data['password'],)){
     $username = $request_data['username'];
     $password = $request_data['password'];
-    $remember = (boolean)$request_data['remember'];
 
     /** @var WP_User $user */
     $user = wp_signon(['user_login'=>$username,
         'user_password'=>$password,
-        'remember'=>$remember]);
+        'remember'=>1]);
 
    if(is_wp_error($user)){
     echo json_encode(['status' => "success" , 'msg_code' => "login_error" , 'msg' => "There is a problem with the data, please check again!"]);
