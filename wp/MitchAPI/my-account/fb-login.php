@@ -21,7 +21,7 @@ if (isset($request_data['email'],$request_data['id'])){
           /** @var WP_User $user */
         $user = wp_signon(['user_login'=>$username,
         'user_password'=>$fb_user_id,
-        'remember'=>$remember]);
+        'remember'=>1]);
         if(is_wp_error($user)){
             echo json_encode(['status' => "error" , 'msg_code' => "login_error" , 'msg' => "There is a problem with the data, please check again!"]);
         }else{
