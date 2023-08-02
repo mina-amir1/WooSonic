@@ -121,6 +121,7 @@ done
 read -p "Enter the new domain: " new_domain
 
 # Update the NGINX configuration file with the new domain
+sudo  sed -i '3s|.*|   server_name '"$new_domain"';|' "$nginx_conf_file"
 sudo  sed -i '9s|.*|   server_name '"$new_domain"';|' "$nginx_conf_file"
 sudo  sed -i '24s|.*|  server_name backend.'"$new_domain"';|' "$nginx_conf_file"
 echo -e "\033[1;32mNginx configured Successfully. \xE2\x9C\x94\033[0m"
@@ -146,7 +147,7 @@ fi
 
 #Rebuild the remix project
 echo -e "Building Remix... \u23F3"
-output=$(docker exec -it pwa-remix sh -c "npm run build" 2>&1)
+output=$(docker exec -it $(docker ps -f name=remix -q | tail -n1) sh -c "npm run build" 2>&1)
 exit_code=$?
 # Check if any error occurred
 if [ $exit_code -ne 0 ]; then
