@@ -141,6 +141,7 @@ require_once 'pwaEmails/smtp.php';
 require_once 'pwaContactUs/contactPanel.php';
 require_once 'customPost/faq.php';
 require_once 'customPost/branches.php';
+require_once 'categoryFields/category.php';
 
 
 // Enable product reviews
