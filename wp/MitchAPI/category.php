@@ -42,6 +42,7 @@ else {
         $productData = [
             'id' => $product->get_id(),
             'name' => $product->get_name(),
+            'ar_title' => $product->get_meta('title_ar', true),
             'slug' => $product->get_slug(),
             'price' => $product->get_regular_price()!=''? $product->get_regular_price() :$product->get_price(),
             'sale_price' => $product->get_sale_price(),
