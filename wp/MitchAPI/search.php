@@ -4,10 +4,11 @@ header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: ' . PWA_Base_Link);
 $request = file_get_contents("php://input");
 $request_data = $request ? json_decode($request, true, 512, JSON_THROW_ON_ERROR):"";
-if (isset($request_data['keyword'],$request_data['products_per_page'],$request_data['page'])){
+if (isset($request_data['keyword'],$request_data['products_per_page'],$request_data['page'],$request_data['lang'])){
     $products_per_page = $request_data['products_per_page'];
     $page = $request_data['page'];
     $keyword = $request_data['keyword'];
+    $lang = $request_data['lang'];
     $params = array(
         'posts_per_page' => $products_per_page,
         'paged' => $page,
@@ -25,6 +26,23 @@ if (isset($request_data['keyword'],$request_data['products_per_page'],$request_d
             ),
         ),
     );
+    if ($lang !=='en'){
+        $params = array(
+            'posts_per_page' => $products_per_page,
+            'paged' => $page,
+            'post_type' => 'product',
+            'post_status' => 'publish',
+            'meta_query' => array(
+                'relation' => 'AND',
+                array(
+                    'key' => 'title_ar', // Replace with the actual meta key for the title_ar field
+                    'value' => $keyword, // Replace with the desired title_ar value to search for
+                    'compare' => 'LIKE', // Use '=' for exact match
+                ),
+            ),
+        );
+
+    }
 
     $query = new WP_Query($params);
 
