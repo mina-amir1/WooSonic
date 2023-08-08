@@ -27,8 +27,9 @@ RUN apt-get update && apt-get install -y apt-utils \
     libxml2-dev \
     libssl-dev \
     libmcrypt-dev \
-    && docker-php-ext-install -j$(nproc) iconv mysqli pdo_mysql zip curl xml
-
+    libwebp-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install -j$(nproc) iconv mysqli pdo_mysql zip curl xml gd
 
 # Install xdebug
 RUN pecl install xdebug-3.0.4

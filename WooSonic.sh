@@ -121,12 +121,12 @@ done
 read -p "Enter the new domain: " new_domain
 
 # Update the NGINX configuration file with the new domain
-sudo  sed -i '' '3s|.*|   server_name '"$new_domain"';|' "$nginx_conf_file"
-sudo  sed -i '' '9s|.*|   server_name '"$new_domain"';|' "$nginx_conf_file"
-sudo  sed -i '' '24s|.*|  server_name backend.'"$new_domain"';|' "$nginx_conf_file"
+sudo  sed -i '3s|.*|   server_name '"$new_domain"';|' "$nginx_conf_file"
+sudo  sed -i '9s|.*|   server_name '"$new_domain"';|' "$nginx_conf_file"
+sudo  sed -i '24s|.*|  server_name backend.'"$new_domain"';|' "$nginx_conf_file"
 echo -e "\033[1;32mNginx configured Successfully. \xE2\x9C\x94\033[0m"
 # Update the config.js for remix
-sudo sed -i '' '1s|.*|   export const API_ENDPOINT = "https://backend.'"$new_domain"'/MitchAPI";|' "./md/app/config.js"
+sudo sed -i '1s|.*|   export const API_ENDPOINT = "https://backend.'"$new_domain"'/MitchAPI";|' "./md/app/config.js"
 echo -e "\033[1;32mConfig.js configured Successfully. \xE2\x9C\x94\033[0m"
 
 # Bring up containers using Docker Compose

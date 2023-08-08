@@ -1,15 +1,13 @@
 version: '3'
 services:
   remix:
-    container_name: pwa-remix
     build:
       context: ./md
       dockerfile: Dockerfile
-    ports:
-      - 3000:3000
     volumes:
-      - ./md/app:/app/app
-      - ./md/public:/app/public
+      - ./md:/app
+#      - ./md/app:/app/app
+#      - ./md/public:/app/public
 
   #  for_Macbook Intel
   db:
