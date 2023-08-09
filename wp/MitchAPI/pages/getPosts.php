@@ -33,6 +33,7 @@ if (isset($request_data['post_type'], $request_data['page'], $request_data['post
             'ar_title' => $title_ar,
             'ar_content' => $cont_ar,
             'extra_data'=>$extra_data,
+            "created_time" => $post->post_date,
             'image' => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full')[0] ?? '',
         ];
     }
