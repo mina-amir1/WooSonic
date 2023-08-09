@@ -10,7 +10,7 @@ if (isset($request_data['post_type'], $request_data['page'], $request_data['post
     $posts_per_page = $request_data['posts_per_page'];
     $metas = $request_data['extra_fields'] ?? [];
     $args = array(
-        'post_type' => $post_type ?? 'branch',
+        'post_type' => $post_type ?? 'post',
         'post_status' => 'publish',
         'posts_per_page' => $posts_per_page, // Retrieve all posts
         'paged' => $page,
