@@ -60,6 +60,13 @@ if (!isset($request_data['slug'],)) {
                 ];
             }
         }
+        elseif ($product_type === 'simple') {
+            $attributes = $product->get_attributes();
+            foreach ($attributes as $name=>$attribute) {
+                $attribute_name = str_replace('pa_', '', $name);
+                $productData['attributes'][$attribute_name] = $product->get_attribute($name);
+            }
+        }
         echo json_encode($productData);
         // echo json_encode($variations);
     } else {
