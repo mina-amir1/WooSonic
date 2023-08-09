@@ -5,7 +5,7 @@ header('Access-Control-Allow-Origin: ' . PWA_Base_Link);
 $request = file_get_contents("php://input");
 $request_data = json_decode($request, true);
 if (isset($request_data['post_type'], $request_data['page'], $request_data['posts_per_page'])) {
-    $post_type = ($request_data['type']==='blog')?'post':$request_data['type'];
+    $post_type = ($request_data['post_type']==='blog')?'post':$request_data['type'];
     $page = $request_data['page'];
     $posts_per_page = $request_data['posts_per_page'];
     $metas = $request_data['extra_fields'] ?? [];
