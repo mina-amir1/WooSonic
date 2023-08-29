@@ -1,6 +1,7 @@
 #!/bin/bash
 
 print_decoration() {
+    clear
       GREEN='\033[0;32m'
       NC='\033[0m' # No Color
     echo "                                                                            "
@@ -18,6 +19,10 @@ print_decoration() {
     echo -e "╚███╔███╔╝ ╚██████╔╝ ╚██████╔╝ ███████║ ╚██████╔╝ ██║ ╚████║ ██║ ███████╗"
     echo -e " ╚══╝╚══╝   ╚═════╝   ╚═════╝  ╚══════╝  ╚═════╝  ╚═╝  ╚═══╝ ╚═╝ ╚══════╝"
     echo -e "***************************************************************** ${GREEN}Beta V1${NC}"
+    echo "                                                                            "
+    echo "                                                                            "
+    echo "                                                                            "
+    echo "                                                                            "
     echo "                                                                            "
     echo "                                                                            "
     echo "                                                                            "
@@ -120,22 +125,37 @@ done
 # Prompt for the domain
 read -p "Enter the new domain: " new_domain
 
+# Check OS type
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    sed_cmd="sed -i ''"
+else
+    sed_cmd="sed -i"
+fi
+
 # Update the NGINX configuration file with the new domain
-sudo  sed -i '3s|.*|   server_name '"$new_domain"';|' "$nginx_conf_file"
-sudo  sed -i '9s|.*|   server_name '"$new_domain"';|' "$nginx_conf_file"
-sudo  sed -i '24s|.*|  server_name backend.'"$new_domain"';|' "$nginx_conf_file"
+sudo  $sed_cmd  '3s|.*|   server_name '"$new_domain"';|' "$nginx_conf_file"
+sudo  $sed_cmd  '9s|.*|   server_name '"$new_domain"';|' "$nginx_conf_file"
+sudo  $sed_cmd  '24s|.*|  server_name backend.'"$new_domain"';|' "$nginx_conf_file"
 echo -e "\033[1;32mNginx configured Successfully. \xE2\x9C\x94\033[0m"
-# Update the config.js for remix
-sudo sed -i '1s|.*|   export const API_ENDPOINT = "https://backend.'"$new_domain"'/MitchAPI";|' "./md/app/config.js"
+# Update the config.js for next
+sudo $sed_cmd  '1s|.*|   export const API_ENDPOINT = "https://backend.'"$new_domain"'/MitchAPI";|' "./md_next/app/config.tsx"
 echo -e "\033[1;32mConfig.js configured Successfully. \xE2\x9C\x94\033[0m"
 
 # Bring up containers using Docker Compose
 echo "Bringing up containers for $environment environment..."
 sudo  docker-compose -f "$compose_file" up -d
 
-sleep 5
+is_running() {
+    docker-compose -f "$docker_compose_file" ps -q pwa-db | grep -q .
+}
+
+# Wait loop
+echo "Waiting for the 'db' container to start..."
+while ! is_running; do
+    sleep 2
+done
 # Update the MySQL database with the new domain
-output=$(docker exec -i pwa-db mysql -uroot -p'example' -e "use pwa; update wp_options set option_value ='https://backend.$new_domain' where option_id in (1,2);" 2>&1)
+output=$(docker exec -i $(docker ps -f name=db -q | tail -n1) mysql -uroot -p'example' -e "use pwa; update wp_options set option_value ='https://backend.$new_domain' where option_id in (1,2);" 2>&1)
 exit_code=$?
 # Check if any error occurred
 if [ $exit_code -ne 0 ]; then
@@ -145,15 +165,15 @@ else
     echo -e "\033[1;32mMySQL row updated successfully. \xE2\x9C\x94\033[0m"
 fi
 
-#Rebuild the remix project
-echo -e "Building Remix... \u23F3"
-output=$(docker exec -it $(docker ps -f name=remix -q | tail -n1) sh -c "npm run build" 2>&1)
-exit_code=$?
-# Check if any error occurred
-if [ $exit_code -ne 0 ]; then
-    echo -e "\033[1;31mError: Failed to rebuild Remix. \xE2\x9D\x8C\033[0m \n Details: $output"
-    exit 1
-else
-    echo -e "\033[1;32mRemix Rebuilt successfully. \xE2\x9C\x94\033[0m"
-fi
+#Rebuild the next project
+#echo -e "Building next... \u23F3"
+#output=$(docker exec -it $(docker ps -f name=next -q | tail -n1) sh -c "npm run build" 2>&1)
+#exit_code=$?
+## Check if any error occurred
+#if [ $exit_code -ne 0 ]; then
+#   echo -e "\033[1;31mError: Failed to rebuild next. \xE2\x9D\x8C\033[0m \n Details: $output"
+#   exit 1
+#else
+#   echo -e "\033[1;32mNext Rebuilt successfully. \xE2\x9C\x94\033[0m"
+#fi
 echo -e "\033[1;32mConfiguration completed for $environment environment. \xE2\x9C\x94\033[0m"
