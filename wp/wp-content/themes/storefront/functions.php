@@ -142,6 +142,8 @@ require_once 'pwaContactUs/contactPanel.php';
 require_once 'customPost/faq.php';
 require_once 'customPost/branches.php';
 require_once 'categoryFields/category.php';
+require_once 'home/homeFields.php';
+require_once 'productFields/productFields.php';
 
 
 // Enable product reviews
@@ -176,3 +178,17 @@ function pwa_custom_order_statuses()
 }
 
 add_action('init', 'pwa_custom_order_statuses');
+
+add_action('save_post', 'my_acf_save_post', 10, 1);
+function my_acf_save_post($post_id) {
+    // Check if this is a valid post ID
+    if (!$post_id || wp_is_post_autosave($post_id) || wp_is_post_revision($post_id)) {
+        return;
+    }
+    if (get_post_type($post_id)==='page') {
+        $page = get_post($post_id);
+        $fields = get_field('content', $page->ID);
+        $json_data = json_encode($fields);
+        file_put_contents(ABSPATH . 'MitchAPI/pages/' . $page->post_name . '.json', $json_data);
+    }
+}

@@ -2,6 +2,11 @@
 require_once '../../wp-load.php';
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: ' . PWA_Base_Link);
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS, DELETE');
+header('Access-Control-Allow-Headers: x-requested-with,content-type, Set-Cookie');
+header('Access-Control-Allow-Credentials: true');
+header('Access-Control-Max-Age: 86400');
+header('Cache-Control: public, max-age=86400');
 $request = file_get_contents("php://input");
 $request_data = json_decode($request, true);
 if (isset($request_data['slug'],$request_data['type'])) {
